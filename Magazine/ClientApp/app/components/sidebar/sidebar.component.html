@@ -1,0 +1,78 @@
+<div class="sub-cate">
+    <div class=" top-nav rsidebar span_1_of_left">
+        <h3 class="cate">{{ 'Categories' | translate }}</h3>
+        <ul class="menu">
+            <li *ngFor="let category of categories">
+                <a [routerLink]="['/products',category.sequenceId]">{{category.name}}<img *ngIf="category.productCategories.length > 0" class="arrow-img " src="../../assets/images/arrow1.png" alt="" /></a>
+                <ul *ngIf="category.productCategories" class="cute" style="display: none;">
+                    <li *ngFor="let subcategory of category.productCategories" class="subitem1">
+                        <a [routerLink]="['/products',subcategory.sequenceId]">{{subcategory.name}}<img *ngIf="subcategory.productCategories.length > 0" class="arrow-img " src="../../assets/images/arrow1.png" alt="" /></a>
+                        <ul *ngIf="subcategory.productCategories" class="cute"  style="display: none;">
+                            <li *ngFor="let child of subcategory.productCategories" class="subitem1">
+                                <a [routerLink]="['/products',child.sequenceId]">{{child.name}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class=" chain-grid menu-chain">
+        <a  [routerLink]="['/product', '6ff0b91f-019a-e711-9449-a2620d9c2c9e', 'details']"><img class="img-responsive chain" src="../../assets/images/wat.jpg" alt=" "></a>
+        <div class="grid-chain-bottom chain-watch">
+            <span class="actual dolor-left-grid">300$</span>
+            <span class="reducedfrom">500$</span>
+            <h6><a  [routerLink]="['/product','6ff0b91f-019a-e711-9449-a2620d9c2c9e', 'details']">Lorem ipsum dolor</a></h6>
+        </div>
+    </div>
+    <a class="view-all all-product" [routerLink]="['/product','6ff0b91f-019a-e711-9449-a2620d9c2c9e', 'details']">{{ 'ViewAllProducts' | translate }}<span> </span></a>
+</div>
+
+
+
+
+<!--<div class='main-nav'>
+  <div class='navbar'>
+    <div class='navbar-header'>
+      <div class='navbar-brand'>
+        <button type='button' class='navbar-toggle' (click)="collapseNavbar()">
+          <span class='sr-only'>Toggle navigation</span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+          <span class='icon-bar'></span>
+        </button>
+        <a [routerLink]="['/home']" class='navbar-link'>Angular 4 Universal & ASP.NET Core</a>
+      </div>
+    </div>
+    <div class='clearfix'></div>
+    <div class='navbar-collapse {{collapse}}'>
+      <ul class='nav navbar-nav'>
+        <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+          <a [routerLink]="['/home']">
+            <span class='glyphicon glyphicon-home'></span> 
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+          <a [routerLink]="['/counter']">
+            <span class='glyphicon glyphicon-education'></span> {{ 'COUNTER' | translate }}
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+          <a [routerLink]="['/users']">
+            <span class='glyphicon glyphicon-user'></span> Rest API Demo
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+          <a [routerLink]="['/ngx-bootstrap']">
+            <span class='glyphicon glyphicon-th-large'></span> ngx-Bootstrap demo
+          </a>
+        </li>
+        <li [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+          <a [routerLink]="['/lazy']">
+            <span class='glyphicon glyphicon-star-empty'></span> Lazy-loaded demo
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>-->

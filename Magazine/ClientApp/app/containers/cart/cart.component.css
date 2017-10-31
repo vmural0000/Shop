@@ -1,0 +1,9 @@
+﻿span.badge {
+    top: -10px;
+    position: relative;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}

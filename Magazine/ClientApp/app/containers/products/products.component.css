@@ -1,0 +1,26 @@
+﻿.chain-grid {
+    border: 1px solid #ddd;
+    position: relative;
+    width: 30.7%;
+    margin: 1%;
+    padding: 0;
+    height: 480px;
+}
+
+.grid-chain-bottom h6 {
+    margin: 0;
+    padding: .8em .5em 0;
+    height: 65px;
+}
+span.actual {
+    font-weight: 500;
+    color: #1DBAA5;
+    font-weight: 700;
+    font-size: 1.3em;
+}
+a.get-cart {
+    float: right;
+    padding: 0.4em 0.6em;
+    font-size: 1em;
+    cursor: pointer;
+}

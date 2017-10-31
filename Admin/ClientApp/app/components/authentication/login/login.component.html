@@ -1,0 +1,41 @@
+﻿<div class="row">
+    <mz-card class="col s6 offset-s2 z-depth-3">
+        <mz-card-content>
+            <div class="row text-center">
+                <img src="../../../assets/images/logo-icon.png" height="80" alt="" class="m-b-1"/>
+                <h5> {{'login.Welcome' | translate}} </h5>
+                <p class="text-muted"> {{'login.Title' | translate}} </p>
+            </div>
+
+            <form #f="ngForm" novalidate (ngSubmit)="login()" id="validate">
+                <div class="row">
+                    <mz-input-container>
+                        <i mz-icon-mdi mz-input-prefix [icon]="'account-circle'"> </i>
+                        <input mz-input
+                               [label]="'login.UserNameHint' | translate" [(ngModel)]="userLogin.email" name="email"
+                               id="username" required type="text">
+                    </mz-input-container>
+
+                    <mz-input-container>
+                        <i mz-icon-mdi mz-input-prefix [icon]="'textbox-password'"> </i>
+                        <input mz-input
+                               [label]="'login.PasswordHint' | translate" [(ngModel)]="userLogin.password"
+                               name="password" id="password" required type="password">
+                    </mz-input-container>
+
+                    <mz-checkbox-container>
+                        <input mz-checkbox
+                               [(ngModel)]="userLogin.rememberMe" name="rememberMe"
+                               [label]="'login.Remember' | translate" id="rememberMe" type="checkbox">
+                    </mz-checkbox-container>
+                </div>
+                <div class="row">
+                    <button mz-button [disabled]="isLoading || !f.form.valid" type="submit">
+                        <i mz-icon [icon]="'cloud'"></i>
+                        {{ (isLoading ? 'login.Logining' : 'login.Login') | translate }}
+                    </button>
+                </div>
+            </form>
+        </mz-card-content>
+    </mz-card>
+</div>

@@ -1,0 +1,30 @@
+<div [@fadeInOut] class="content-view">
+    <div class="card">
+        <div class="card-block">
+            <div class="dataTables_wrapper">
+                <div class="ui-widget-header  search" style="padding: 4px 10px; border-bottom: 0 none">
+                    <i class="fa fa-search" style="margin: 4px 4px 0 0"></i>
+                    <input #gb type="text" pInputText size="50" placeholder="{{'app.Search' | translate}}">
+                </div>
+                <button *ngIf="canReadCustomers" type="button" class="ui-button-secondary" (click)="loadData()">{{'general.Refresh' | translate}}</button>
+                <button *ngIf="canCreateCustomers" type="button" class="ui-button-success" routerLink="create">{{'customers.list.create' | translate}}</button>
+                <table class="table table-bordered table-striped m-b-0">
+                    <thead>
+                        <tr>
+                            <th>{{'customers.list.name' | translate}}</th>
+                            <th>{{'customers.list.phoneNumber' | translate}}</th>
+                            <th>{{'customers.list.city' | translate}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of rows">
+                            <td><a (click)="edit(item.id)">{{item.name}}</a></td>
+                            <td>{{item.adress}}</td>
+                            <td>{{item.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

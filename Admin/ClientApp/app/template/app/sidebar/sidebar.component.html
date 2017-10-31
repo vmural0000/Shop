@@ -1,0 +1,48 @@
+﻿<mz-sidenav #sidenav
+            [id]="'sidenav'"
+            [closeOnClick]="true"
+            [collapseButtonId]="'btn-sidenav'"
+            [fixed]="true">
+
+    <ul>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/dashboard']" class="waves-effect waves-teal"><i class="material-icons text-primary">home</i><span>{{'app.Dashboard' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/products']" class="waves-effect waves-teal"><i class="material-icons text-info">apps</i><span>{{'app.Products' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/productcategories']" class="waves-effect waves-teal"><i class="material-icons text-primary">view_list</i><span>{{'app.ProductCategories' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/customers']" class="waves-effect waves-teal"><i class="material-icons text-danger">contacts</i><span>{{'app.Customers' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/orders']" class="waves-effect waves-teal"><i class="material-icons text-success">shopping_cart</i><span>{{'app.Orders' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/shipments']" class="waves-effect waves-teal"><i class="material-icons text-warning">local_shipping</i><span>{{'app.Shipments' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/storages']" class="waves-effect waves-teal"><i class="material-icons text-primary">business</i><span>{{'app.Storages' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/users']" class="waves-effect waves-teal"><i class="material-icons text-danger">group</i><span>{{'app.Users' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/roles']" class="waves-effect waves-teal"><i class="material-icons text-danger">beenhere</i><span>{{'app.Roles' | translate}}</span></a>
+        </li>
+        <li routerLinkActive="active" class="bold">
+            <a [routerLink]="['/activity']" class="waves-effect waves-teal"><i class="material-icons text-danger">history</i><span>{{'app.ActivityLogs' | translate}}</span></a>
+        </li>
+    </ul>
+
+</mz-sidenav>
+
+<button mz-button
+        class="sidenav-button hide-on-large-only"
+        id="btn-sidenav"
+        [float]="true"
+        [large]="true">
+    <i mz-icon-mdi [icon]="'menu'"></i>
+</button>

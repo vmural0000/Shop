@@ -1,0 +1,141 @@
+<!--<div [@fadeInOut] *ngIf="!loadingIndicator">
+    {{shipment.id}}
+
+    <p-fieldset legend="Header">
+        {{shipment.accepted}}<br>
+        {{shipment.managerFullName}}<br>
+        {{shipment.orderPaymentMethod}}<br>
+        {{shipment.orderElectronicInvoice}}<br>
+    </p-fieldset>
+</div>-->
+
+<!--<div class="content-view">
+    <div class="card">
+        <a href="javascript:;" data-toggle="contact">
+            <i class="material-icons visible-xs m-r-1">arrow_back</i>
+        </a>
+        <div class="card-header" *ngIf="!shipment.conducted">
+            <button type="button" class="btn btn-success btn-icon btn-sm" (click)="accept()"><i class="material-icons">done_all</i>Провести</button>
+        </div>
+        <div *ngIf="shipment.conducted" class="card-header text-xs-right">
+            <button type="button" class="btn btn-danger btn-icon btn-sm" onclick="window.print();"><i class="material-icons">print</i>{{'general.Print' | translate}}</button>
+            <button type="button" class="btn btn-info btn-icon btn-sm"><i class="material-icons">import_export</i>{{'general.ExportToPDF' | translate}}</button>
+        </div>
+        <div class="card-block">
+            <div class="p-b-2 clearfix">
+                <div class="pull-right text-xs-right">
+                    <h5 class="bold m-b-0">
+                        Видаткова накладна <strong>#{{shipment.shipmentNumber}}</strong>
+                    </h5>
+                    <p class="m-b-0">
+                        Від <strong>{{shipment.time | date:'short'}}</strong>
+                    </p>
+                    <p class="m-b-0">
+                        Сформовано на основі <strong>{{shipment.orderOrderNumber}}</strong>
+                    </p>
+                </div>
+                <div class="circle-icon bg-success text-white m-r-1">
+                    <i class="material-icons">
+                        archive
+                    </i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="m-b-0">
+                        Company LLC {{shipment.storageName}}
+                    </p>
+                    <p class="m-b-0">
+                        company@address.com {{shipment.storageAdress}}
+                    </p>
+                    <p class="m-b-0">
+                        +012 345 678 90
+                    </p>
+                </div>
+            </div>
+            <div class="p-t-2 p-b-2 clearfix">
+                <div class="circle-icon bg-success text-white m-r-1">
+                    <i class="material-icons">
+                        contact_phone
+                    </i>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="m-b-0">
+                        {{shipment.orderCustomerName}}
+                    </p>
+                    <p class="m-b-0">
+                        {{shipment.orderCustomerPhoneNumber}} {{shipment.orderCustomerEmail}}
+                    </p>
+                    <p class="m-b-0">
+                        {{shipment.orderCustomerCity}}
+                    </p>
+                    <p class="m-b-0">
+                        {{shipment.orderCustomerAddress}}
+                    </p>
+                </div>
+            </div>
+            <div class="table-responsive p-t-2 p-b-2">
+                <table class="table table-bordered m-b-0">
+                    <thead>
+                    <tr>
+                        <th>{{'shipment.management.productArticle' | translate}}</th>
+                        <th>{{'shipment.management.productName' | translate}}</th>
+                        <th>{{'shipment.management.productUnitPrice' | translate}}</th>
+                        <th>{{'shipment.management.productQuantity' | translate}}</th>
+                        <th>{{'shipment.management.productAmount' | translate}}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of shipment.orderLines">
+                        <td>{{item.productArticle}}</td>
+                        <td>{{item.productName}}</td>
+                        <td>{{item.unitPrice}} грн.</td>
+                        <td>{{item.quantity}}</td>
+                        <td>{{item.amount}} грн.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="invoice-totals p-t-2 p-b-2">
+                <div class="invoice-totals-row">
+                    <strong class="invoice-totals-title">
+                        Subtotal
+                    </strong>
+                    <span class="invoice-totals-value">
+                        $1619.97
+                    </span>
+                </div>
+                <div class="invoice-totals-row">
+                    <strong class="invoice-totals-title">
+                        Total
+                    </strong>
+                    <span class="invoice-totals-value">
+                        {{shipment.totalPrice}} грн.
+                    </span>
+                </div>
+                <div class="invoice-totals-row">
+                    <strong class="invoice-totals-title">
+                        Amount Paid
+                    </strong>
+                    <span class="invoice-totals-value">
+                        $0.00
+                    </span>
+                </div>
+                <div class="invoice-totals-row">
+                    <strong class="invoice-totals-title">
+                        Amount Due
+                    </strong>
+                    <span class="invoice-totals-value">
+                        $1619.97
+                    </span>
+                </div>
+            </div>
+            <small class="p-t-2">
+                <strong>
+                    PAYMENT TERMS AND POLICIES
+                </strong>
+                All accounts are to be paid within 7 days from receipt of invoice. To be paid by cheque or credit card or direct payment online. If account is not paid within 7 days the credits details supplied as confirmation of work undertaken will be charged the agreed
+                quoted fee noted above. If the Invoice remails unpaid. our dept recovery agency, Urban, may charge you a fee of 25% of the unpaid portion of the
+                invoice amount and other legal and collection costs not covered by the fee.
+            </small>
+        </div>
+    </div>
+</div>-->

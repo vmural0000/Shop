@@ -1,0 +1,287 @@
+﻿{
+  "app": {
+    "New": "Нових",
+    "Search": "Пошук...",
+    "Dashboard": "Панель",
+    "Customers": "Клієнти",
+    "Products": "Товари",
+    "ProductCategories": "Категорії",
+    "Orders": "Замовлення",
+    "Shipments": "Відгрузки",
+    "Storages": "Склади",
+    "Access": "Доступ",
+    "Users": "Користувачі",
+    "Roles": "Ролі",
+    "ActivityLogs": "Логи доступу",
+    "Finance": "Фінанси",
+    "Costs": "Надходження",
+    "Profit": "Видатки",
+    "Settings": "Налаштування",
+    "Notifications": "Сповіщення",
+    "Logout": "Вийти"
+  },
+  "alert": {
+    "Success": "Виконано",
+    "Error": "Помилка",
+    "ErrorDetail": "Виникла помилка при виконані запиту",
+    "UpdateSuccess": "Оновлено {{value}}",
+    "CreateSuccess": "Створено {{value}}",
+    "DeleteSuccess": "\"{{value}}\" видалено.",
+    "Confirm": "Ви підтверджуєте дану дію?"
+  },
+  "login": {
+    "Welcome": "З поверненням!",
+    "Title": "Увійдіть, використовуючи ідентифікатор додатка, щоб продовжити.",
+    "UserName": "Логін",
+    "UserNameHint": "Введіть своє ім'я користувача",
+    "Password": "Пароль",
+    "PasswordHint": "Введіть ваш пароль",
+    "Remember": "Залишатися в системі",
+    "Logining": "Авторизація...",
+    "Login": "Авторизуватись"
+  },
+  "pageHeader": {
+    "Dashboard": "Панель",
+    "Customers": "Замовники",
+    "Products": "Товари",
+    "Orders": "Замовлення",
+    "NotFound": "Не знайдено",
+    "Settings": "Налаштування"
+  },
+  "general": {
+    "Back": "Назад",
+    "Refresh": "Оновити дані",
+    "Accept": "Прийняти",
+    "Add": "Створити",
+    "Update": "Оновити",
+    "Details": "Деталі",
+    "Edit": "Редагувати",
+    "Delete": "Видалити",
+    "Restore": "Відновити",
+    "ShowDeleted": "Показати видалені",
+    "AdminDelete": "Видалити остаточно",
+    "Error": "Помилка!",
+    "ErrorLoad": "Не вдалося завантажити дані з сервера."
+  },
+  "home": {
+    "NoWidgets1": "You have no widgets displayed. Goto",
+    "NoWidgets2": "to configure available widgets",
+    "StatisticsTitle": "Some Important Stuff"
+  },
+  "notFound": {
+    "404": "404",
+    "pageNotFound": "The page you are looking for does not exist",
+    "backToHome": "Back to home"
+  },
+  "settings": {
+    "tab": {
+      "Profile": "Профіль",
+      "Preferences": "Налаштування"
+    }
+  },
+  "preferences": {
+    "ReloadPreferences": "Перезавантажити налаштування:",
+    "ReloadPreferencesHint": "Завантаження налаштувань за замовчуванням (локальні зміни відкидаються)",
+    "Language": "Мова:",
+    "English": "Англійська",
+    "Russian": "Російська",
+    "Ukraine": "Українська",
+    "LanguageHint": "Виберіть бажану мову вашого облікового запису",
+    "DashboardStatistics": "Dashboard Statistics:",
+    "DashboardStatisticsHint": "Show demo graph widget on the dashboard",
+    "DashboardNotifications": "Dashboard Notifications:",
+    "DashboardNotificationsHint": "Show application notifications on the dashboard",
+    "DashboardTodo": "Dashboard Todo:",
+    "DashboardTodoHint": "Відображає віджет демонстраційного відображення на інформаційній панелі",
+    "DashboardBanner": "Банер інформаційної панелі:",
+    "DashboardBannerHint": "Показати візуальний банер демонстраційної інформації на інформаційній панелі",
+    "ResetDefault": "Скидання за замовчуванням",
+    "SetDefault": "Встановити за замовчуванням"
+  },
+  "users": {
+    "management": {
+      "NewUser": "New User",
+      "Edit": "Edit",
+      "Delete": "Delete",
+      "EditUser": "Edit User \"{{name}}\"",
+      "Title": "Title",
+      "UserName": "User Name",
+      "FullName": "Full Name",
+      "Email": "Email",
+      "Roles": "Roles",
+      "PhoneNumber": "Phone Number"
+    },
+    "editor": {
+      "JobTitle": "Job Title: ",
+      "UserName": "User Name:",
+      "UserNameRequired": "User name is required (minimum of 2 and maximum of 200 characters)",
+      "Password": "Password:",
+      "PasswordHint": "Your password is required when changing user name",
+      "CurrentPasswordRequired": "Current password is required",
+      "Email": "Email:",
+      "EmailRequired": "Email address is required (maximum of 200 characters)",
+      "InvalidEmail": "Specified email is not valid",
+      "ChangePassword": "Change Password",
+      "CurrentPassword": "Current Password:",
+      "NewPassword": "New Password:",
+      "NewPasswordRequired": "New password is required (minimum of 6 characters)",
+      "ConfirmPassword": "Confirm Password:",
+      "ConfirmationPasswordRequired": "Confirmation password is required",
+      "PasswordMismatch": "New password and confirmation password do not match",
+      "Roles": "Roles:",
+      "FullName": " Full Name:",
+      "RoleRequired": " Role is required",
+      "PhoneNumber": "Phone #:",
+      "Enabled": "Enabled",
+      "Unblock": "Unblock",
+      "Close": "Close",
+      "Edit": "Edit",
+      "Cancel": "Cancel",
+      "Save": "Save",
+      "Saving": "Saving..."
+    }
+  },
+  "roles": {
+    "management": {
+      "NewRole": "New Role",
+      "Edit": "Edit",
+      "Details": "Details",
+      "Delete": "Delete",
+      "RoleDetails": "Role Details",
+      "EditRole": "Edit Role \"{{name}}\"",
+      "Name": "Name",
+      "Description": "Description",
+      "Users": "Users"
+    },
+    "editor": {
+      "Name": "Name:",
+      "Description": "Description:",
+      "RoleNameRequired": "Role name is required (minimum of 2 and maximum of 200 characters)",
+      "SelectAll": "Select all",
+      "SelectNone": "Select none",
+      "Close": "Close",
+      "Cancel": "Cancel",
+      "Save": "Save",
+      "Saving": "Saving..."
+    }
+  },
+  "notifications": {
+    "Delete": "Delete notification",
+    "Pin": "Pin notification",
+    "Date": "Date",
+    "Notification": "Notification"
+  },
+  "products": {
+    "list": {
+      "create": "Додати новий товар",
+      "article": "Артикул",
+      "name": "Назва",
+      "sellingPrice": "Ціна реалізації",
+      "unitsInStock": "Залишок",
+      "productCategoryName": "Категорія"
+    },
+    "management": {
+      "id": "ID: ",
+      "article": "Артикул: ",
+      "barCode": "Штрих-код: ",
+      "name": "Назва: ",
+      "brand": "Бренд: ",
+      "shortDescription": "Короткий опис: ",
+      "price": "Ціна реалізації: ", 
+      "discountPrice": "Акційна ціна: ",
+      "unitsInStock": "Залишок: ",
+      "dateCreated": "Час створення: ",
+      "dateModified": "Час модифікації: ",
+      "isDiscontinued": "Знижка: ",
+     
+      "metaTitle": "Title: ",
+      "metaDescription": "Description: ",
+      "metaKeywords": "Keywords: ",
+      "description": "Опис: ",
+      "productCategoryId": "Категорія: "
+    }
+  },
+  "productCategories": {
+    "list": {
+      "Create": "Додати нову категорію",
+      "id": "ID",
+      "name": "Назва",
+      "description": "Опис",
+      "icon": "Іконка"
+    },
+    "management": {
+      "Create": "Створити",
+      "CreateTitle": "Створення нової категорії",
+      "name": "Назва:",
+      "description": "Опис:",
+      "icon": "Іконка"
+    }
+  },
+  "customers": {
+    "list": {
+      "create": "Додати клієнта",
+      "name": "ПІБ",
+      "email": "E-mail",
+      "phoneNumber": "Телефон",
+      "city": "Місто",
+      "address": "Адреса"
+    },
+    "management": {
+      "name": "ПІБ:",
+      "email": "E-mail:",
+      "phoneNumber": "Телефон:",
+      "city": "Місто:",
+      "address": "Адреса:",
+      "gender": "Стать:"
+    }
+  },
+  "order": {
+    "list": {
+      "create": "Створити замовлення",
+      "orderNumber": "Номер замовлення",
+      "status": "Статус",
+      "dateCreated": "Час замовлення",
+      "customerName": "Клієнт",
+      "customerPhoneNumber": "Телефон"
+    },
+    "management": {
+      "create": "Створити замовлення",
+      "removeItem": "Видалити товар",
+      "id": "ID:",
+      "orderNumber": "Номер замовлення:",
+      "status": "Статус:",
+      "discount": "Знижка:",
+      "dateCreated": "Створено:",
+      "dateModified": "Модифіковано:",
+      "comments": "Коментар:",
+      "manager": "Менеджер:",
+      "totalPrice": "Загальна сума:",
+      "deliveryDate": "Дата відправки:",
+      "customerName": "ПІБ:",
+      "customerEmail": "E-mail:",
+      "customerPhoneNumber": "Телефон:",
+      "customerCity": "Місто:",
+      "customerAddress": "Адреса:",
+      "productName": "Назва товару",
+      "productQuantity": "Кількість",
+      "productUnitPrice": "Ціна за одиницю",
+      "productTotalUnitPrice": "Сумарна ціна за позицію"
+    }
+  },
+  "activitylog": {
+    "list": {
+      "userFullName": "Користувач",
+      "type": "Тип",
+      "timeStamp": "Час",
+      "resourceId": "Ресурс"
+    },
+    "management": {
+      "name": "ПІБ:",
+      "email": "E-mail:",
+      "phoneNumber": "Телефон:",
+      "city": "Місто:",
+      "address": "Адреса:",
+      "gender": "Стать:"
+    }
+  }
+}
