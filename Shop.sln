@@ -3,13 +3,27 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27019.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{6632AC5F-3ADD-4127-A1B7-92A2A97120E8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{7F2EA6A2-C59C-426F-B7D8-376E4574BEAF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{BEE7973E-0669-4919-BC3E-F86F30CBAFCD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Magazine\Client.csproj", "{B18251F9-2FD6-45E9-B61E-B1056BCE440E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6} = {648C2CBE-EE08-4879-A6F1-07C18D7E97C6}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apps", "Apps", "{B4EEB2DE-F72B-49CF-845D-FC3640F4F503}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{58740935-27B1-4688-959B-B5B06B99DF91}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{A9D199E5-BB2F-4B4F-852F-5E24DDCB9124}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Admin", "Admin\Admin.csproj", "{C350F185-BD7C-4552-B5BB-809A522DF5CB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6} = {648C2CBE-EE08-4879-A6F1-07C18D7E97C6}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "Api\Api.csproj", "{648C2CBE-EE08-4879-A6F1-07C18D7E97C6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +31,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6632AC5F-3ADD-4127-A1B7-92A2A97120E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6632AC5F-3ADD-4127-A1B7-92A2A97120E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6632AC5F-3ADD-4127-A1B7-92A2A97120E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6632AC5F-3ADD-4127-A1B7-92A2A97120E8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F2EA6A2-C59C-426F-B7D8-376E4574BEAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7F2EA6A2-C59C-426F-B7D8-376E4574BEAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F2EA6A2-C59C-426F-B7D8-376E4574BEAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,9 +43,24 @@ Global
 		{B18251F9-2FD6-45E9-B61E-B1056BCE440E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B18251F9-2FD6-45E9-B61E-B1056BCE440E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B18251F9-2FD6-45E9-B61E-B1056BCE440E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C350F185-BD7C-4552-B5BB-809A522DF5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C350F185-BD7C-4552-B5BB-809A522DF5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C350F185-BD7C-4552-B5BB-809A522DF5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C350F185-BD7C-4552-B5BB-809A522DF5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F2EA6A2-C59C-426F-B7D8-376E4574BEAF} = {58740935-27B1-4688-959B-B5B06B99DF91}
+		{BEE7973E-0669-4919-BC3E-F86F30CBAFCD} = {A9D199E5-BB2F-4B4F-852F-5E24DDCB9124}
+		{B18251F9-2FD6-45E9-B61E-B1056BCE440E} = {B4EEB2DE-F72B-49CF-845D-FC3640F4F503}
+		{C350F185-BD7C-4552-B5BB-809A522DF5CB} = {B4EEB2DE-F72B-49CF-845D-FC3640F4F503}
+		{648C2CBE-EE08-4879-A6F1-07C18D7E97C6} = {B4EEB2DE-F72B-49CF-845D-FC3640F4F503}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6622A55E-14CB-4B30-BAB1-BD4D1C2E802F}

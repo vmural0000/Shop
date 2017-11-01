@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DAL.Models
 {
-    public class Product
+    public class Product : IAuditedEntity
     {
         [Key]
         public string Id { get; set; } = SequentialGuidUtils.NewGuid().ToString();
@@ -31,7 +31,7 @@ namespace DAL.Models
         public string Image { get; set; }
 
         public bool Published { get; set; }
-        
+
 
         #region Prices
 
@@ -73,5 +73,10 @@ namespace DAL.Models
 
         public string ProductCategoryId { get; set; }
         public ProductCategory ProductCategory { get; set; }
+
+        public DateTime? Created { get; set; }
+        public DateTime? Modified { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

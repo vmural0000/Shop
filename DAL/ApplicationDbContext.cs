@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using DAL.Models;
-using DAL.Models.Interfaces;
+using DAL.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -86,27 +86,27 @@ namespace DAL
         private void UpdateAuditEntities()
         {
             var modifiedEntries = ChangeTracker.Entries()
-                .Where(x => x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+                .Where(x => x.Entity is IAuditedEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
 
 
             foreach (var entry in modifiedEntries)
             {
-                var entity = (IAuditableEntity)entry.Entity;
+                var entity = (IAuditedEntity)entry.Entity;
                 DateTime now = DateTime.UtcNow;
 
                 if (entry.State == EntityState.Added)
                 {
-                    entity.CreatedDate = now;
+                    entity.Created = now;
                     entity.CreatedBy = CurrentUserId;
                 }
                 else
                 {
                     base.Entry(entity).Property(x => x.CreatedBy).IsModified = false;
-                    base.Entry(entity).Property(x => x.CreatedDate).IsModified = false;
+                    base.Entry(entity).Property(x => x.Created).IsModified = false;
                 }
 
-                entity.UpdatedDate = now;
-                entity.UpdatedBy = CurrentUserId;
+                entity.Modified = now;
+                entity.ModifiedBy = CurrentUserId;
             }
         }
     }

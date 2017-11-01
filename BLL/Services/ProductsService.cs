@@ -20,7 +20,7 @@ namespace BLL.Services
     public interface IProductsService
     {
         IEnumerable<ProductListDto> Get();
-        Task<Tuple<int, IEnumerable<ProductListDto>>> GetAsync(int page, int pageSize);
+        Task<PagedResult<ProductListDto>> GetAsync(int page, int pageSize);
         ProductDetailsDto Get(string id);
         Task<Tuple<int, IEnumerable<ProductListDto>>> GetByCategory(string id, int page, int pageSize);
         ProductDetailsDto GetProductByArticle(string article);
@@ -29,7 +29,7 @@ namespace BLL.Services
         void Put(string id, ProductEditDto dto);
         bool Delete(string id);
         string ExportToJson(string id = null);
-        bool ImportFromJson(IFormCollection file);
+        bool ImportFromJson(string data);
         void Upload(string id, IFormCollection files);
         void DeleteImage(string id, string fileName);
     }
@@ -85,7 +85,7 @@ namespace BLL.Services
         /// <param name="page">Номер сторінки</param>
         /// <param name="pageSize">Ліміт елементів на сторінці</param>
         /// <returns></returns>
-        public async Task<Tuple<int, IEnumerable<ProductListDto>>> GetAsync(int page, int pageSize)
+        public async Task<PagedResult<ProductListDto>> GetAsync(int page, int pageSize)
         {
             _logger.LogDebug(LoggingEvents.GenerateItems, "Отримання списку товарів.");
             try
@@ -100,12 +100,12 @@ namespace BLL.Services
                 {
                     dto.UnitsInStock = UnitsInStock(dto.Id);
                 }
-                return new Tuple<int, IEnumerable<ProductListDto>>(count, model);
+                return new PagedResult<ProductListDto>(model, page, pageSize, count);
             }
             catch (Exception e)
             {
                 _logger.LogError(LoggingEvents.GenerateItemsErorr, e, "Помилка при отримані списку товарів.");
-                return new Tuple<int, IEnumerable<ProductListDto>>(0, null);
+                return null;
             }
         }
 
@@ -303,23 +303,11 @@ namespace BLL.Services
             return Utilities.ModelToJson(_db.Products);
         }
 
-        public bool ImportFromJson(IFormCollection files)
+        public bool ImportFromJson(string data)
         {
             _activityLog.Post(null, ActivityType.Import);
 
-            string data = "";
-            foreach (var file in files.Files)
-            {
-                if (file.Length > 0)
-                {
-                    using (MemoryStream memory = new MemoryStream())
-                    using (Stream stream = file.OpenReadStream())
-                    {
-                        stream.CopyTo(memory);
-                        data = Encoding.UTF8.GetString(memory.ToArray());
-                    }
-                }
-            }
+
             var model = Utilities.JsonToModel<IEnumerable<Product>>(data);
 
             foreach (var item in model)
@@ -329,8 +317,17 @@ namespace BLL.Services
             }
 
             _context.Products.AddRange(model);
-            var result = _context.SaveChanges();
-            return result > 0;
+            try
+            {
+                var result = _context.SaveChanges();
+                return result > 0;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
 

@@ -1,22 +1,13 @@
-﻿// ======================================
-// Author: Ebenezer Monney
-// Email:  info@ebenmonney.com
-// Copyright (c) 2017 www.ebenmonney.com
-// 
-// ==> Gun4Hire: contact@ebenmonney.com
-// ======================================
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using DAL.Models.Interfaces;
 
 namespace DAL.Models
 {
-    public class ApplicationUser : IdentityUser, IAuditableEntity
+    public class ApplicationUser : IdentityUser, IAuditedEntity
     {
         public virtual string FriendlyName
         {
@@ -38,11 +29,10 @@ namespace DAL.Models
         public bool IsEnabled { get; set; }
         public bool IsLockedOut => this.LockoutEnabled && this.LockoutEnd >= DateTimeOffset.UtcNow;
 
+        public DateTime? Created { get; set; }
+        public DateTime? Modified { get; set; }
         public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
-
+        public string ModifiedBy { get; set; }
 
 
         /// <summary>

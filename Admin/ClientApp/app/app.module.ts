@@ -23,7 +23,8 @@ import {FooterComponent} from "./template/app/footer/footer.component";
 import {SidebarComponent} from "./template/app/sidebar/sidebar.component";
 
 import {MaterializeModule} from 'ng2-materialize';
-import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import { DashboardComponent } from "./components/dashboard/dashboard.component";
+
 
 @NgModule({
     bootstrap: [AppComponent],
@@ -49,7 +50,7 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
                 useClass: TranslateLanguageLoader
             }
         }),
-        MaterializeModule.forRoot(),
+        MaterializeModule.forRoot()
     ],
     providers: [
         {provide: LOCALE_ID, useValue: "uk-UA"},
@@ -64,12 +65,14 @@ import {DashboardComponent} from "./components/dashboard/dashboard.component";
     ],
     exports: [
         CommonModule,
-        TranslateModule
+        TranslateModule,
+
     ]
 })
 export class AppModule {
 }
 
 export function getBaseUrl() {
-    return document.getElementsByTagName('base')[0].href;
+    //return document.getElementsByTagName('base')[0].href;
+    return "http://api.forfun.dp.ua/";
 }

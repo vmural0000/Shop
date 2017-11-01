@@ -1,15 +1,15 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {fadeInOut} from '../../../shared/helpers/animations';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { fadeInOut } from '../../../shared/helpers/animations';
 
-import {AccountService} from "../../../shared/services/account.service";
-import {ProductsService} from '../services/products.service';
-import {AlertService} from '../../../shared/services/alert.service';
-import {TranslationService} from "../../../shared/services/translation.service";
+import { AccountService } from "../../../shared/services/account.service";
+import { ProductsService } from '../services/products.service';
+import { AlertService } from '../../../shared/services/alert.service';
+import { TranslationService } from "../../../shared/services/translation.service";
 
-import {Permission} from '../../roles/permission.model';
-import {ProductList} from '../services/product.model';
-import {DatatableComponent} from '@swimlane/ngx-datatable';
+import { Permission } from '../../roles/permission.model';
+import { ProductList } from '../services/product.model';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 
 @Component({
@@ -23,59 +23,55 @@ export class ProductsListComponent implements OnInit {
     loadingIndicator: boolean;
     rows: ProductList[] = [];
     temp: ProductList[] = [];
-    selected: ProductList[] = [];
     private sub: any;
-    private page: number;
+
+    page: number;
+    total: number;
+    itemsPerPage: number = 20;
+
     @ViewChild(DatatableComponent) table: DatatableComponent;
 
     constructor(private router: Router,
-                private data: ProductsService,
-                private alertService: AlertService,
-                private translation: TranslationService,
-                private accountService: AccountService,
-                private route: ActivatedRoute) {
+        private data: ProductsService,
+        private alertService: AlertService,
+        private translation: TranslationService,
+        private accountService: AccountService,
+        private route: ActivatedRoute) {
 
         this.sub = this.route
             .queryParams
             .subscribe(params => {
-                this.page = +params['page'] || 0;
+                this.page = +params['page'] || 1;
+
+                this.fetchData(this.page);
             });
     }
 
     ngOnInit() {
-        if (this.canReadProducts)
-            this.loadData();
-        if (this.page > 0)
-            this.table.offset = this.page;
+        //if (this.canReadProducts)
+        //    this.fetchData();
     }
 
-
-    reloadItems(params) {
-        // this.itemResource.query(params).then(items => this.items = items);
-    }
-
-    // special properties:
-    rowClick(rowEvent) {
-        console.log('Clicked: ' + rowEvent.row.item.name);
-    }
-
-    rowDoubleClick(rowEvent) {
-        alert('Double clicked: ' + rowEvent.row.item.name);
-    }
-
-    rowTooltip(item) { return item.jobTitle; }
-
-
-    loadData() {
+    fetchData(page: number = 1) {
         this.loadingIndicator = true;
-        this.data.getProducts().subscribe(result => {
-            this.rows = result;
+        this.data.getProducts(page, this.itemsPerPage).subscribe(result => {
+            this.rows = result.data;
+            this.total = result.paging.totalItems;
+            this.page = result.paging.currentPage;
             this.temp = [...this.rows];
-        }, error => {
-            console.error(error);
-        });
-        this.loadingIndicator = false;
+            this.loadingIndicator = false;
 
+        }, error => {
+            this.alertService.error(error);
+            console.error(error);
+            this.loadingIndicator = false;
+
+        });
+    }
+
+    pageChange(page: number) {
+        this.router.navigate(['/products'], { queryParams: { page: page } });
+        this.fetchData(page);
     }
 
     export() {
@@ -90,7 +86,7 @@ export class ProductsListComponent implements OnInit {
         }
 
         this.data.importProducts(data).subscribe(result => {
-            this.loadData();
+            //this.loadData();
         }, error => {
             this.alertService.error(this.translation.get("alert.ErrorDetail"), error);
         });
@@ -111,30 +107,12 @@ export class ProductsListComponent implements OnInit {
         this.table.offset = 0;
     }
 
-    getRowClass(row: any) {
-        return {
-            // 'not-published': !row.published
-            
-        };
-    }
 
-    onSelect({selected}) {
+    select(product) {
         if (this.canUpdateProducts) {
-            this.selected = selected;
-            this.router.navigate(['/products', selected[0].id]);
+            this.router.navigate(['/products', product.id]);
         }
     }
-
-    /**
-     * Called whenever the user changes page
-     *
-     * check: https://swimlane.gitbooks.io/ngx-datatable/content/api/table/outputs.html
-     */
-    pageCallback(pageInfo: { count?: number, pageSize?: number, limit?: number, offset?: number }) {
-        //let page = pageInfo.offset + 1;
-        this.router.navigate(['/products'], {queryParams: {page: pageInfo.offset}});
-    }
-
 
     get canCreateProducts() {
         return this.accountService.userHasPermission(Permission.createProductsPermission);

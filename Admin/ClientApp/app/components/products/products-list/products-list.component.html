@@ -1,14 +1,11 @@
 ﻿<div class="row" *ngIf="canReadProducts">
-
-    <!--<spiner [active]="loadingIndicator"></spiner>-->
-
+    <spiner [active]="loadingIndicator"></spiner>
 
     <div class="row">
-        <mz-input-container class="col s12">
+        <!--<mz-input-container class="col s12">
             <i mz-icon-mdi mz-input-prefix [icon]="'magnify'"></i>
             <input mz-input [label]="'app.Search' | translate" type="text" (keyup)='updateFilter($event)'>
-        </mz-input-container>
-
+        </mz-input-container>-->
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large red">
                 <i class="large material-icons">mode_edit</i>
@@ -20,61 +17,39 @@
             </ul>
         </div>
     </div>
-    
+
+
+    <table class="bordered striped">
+        <thead>
+            <tr>
+                <th>{{'products.list.name' | translate}}</th>
+                <th></th>
+                <th>{{'products.list.article' | translate}}</th>
+                <th>{{'products.list.price' | translate}}</th>
+                <th>{{'products.list.unitsInStock' | translate}}</th>
+                <th>{{'products.list.productCategoryName' | translate}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of rows | paginate: { id: 'server', itemsPerPage: itemsPerPage, currentPage: page, totalItems: total }">
+                <td><a href="javascript:;" (click)="select(product);"><strong> {{product.name}}</strong></a></td>
+                <td>
+                    <i *ngIf="!product.published" class="material-icons">visibility_off</i>
+                    <i *ngIf="product.discount" class="material-icons">attach_money</i>
+                </td>
+                <td>{{product.article}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.unitsInStock}}</td>
+                <td>{{product.productCategoryName}}</td>
+            </tr>
+        </tbody>
+    </table>
+
     <div class="row">
-
-        <!--<div style="margin: auto; max-width: 1000px; margin-bottom: 50px;">
-            <data-table id="persons-grid"
-                        headerTitle="Employees"
-                        [items]="rows"
-                        [itemCount]="7"
-                        (reload)="reloadItems($event)"
-
-                        (rowClick)="rowClick($event)"
-                        (rowDoubleClick)="rowDoubleClick($event)"
-                        [rowTooltip]="rowTooltip">
-                <data-table-column [property]="'name'" [header]="'Name'" [sortable]="true" [resizable]="true"></data-table-column>
-                <data-table-column [property]="'article'" [header]="'Date'" [sortable]="true"></data-table-column>
-                <data-table-column property="price"  header="Phone number" width="150px"></data-table-column>
-            </data-table>
-        </div>-->
-
-
-    <ngx-datatable #table class='material'
-                   [loadingIndicator]="loadingIndicator"
-                   [columnMode]="'flex'"
-                   [headerHeight]="50"
-                   [footerHeight]="50"
-                   [rowHeight]="40"
-                   [limit]="20"
-                   [rows]='rows'
-                   [rowClass]="getRowClass"
-                   [selected]="selected"
-                   [selectionType]="'single'"
-                   (select)='onSelect($event)'
-                   (page)="pageCallback($event)">
-
-        <ngx-datatable-column name="{{'products.list.name' | translate}}"
-                              prop="name" [flexGrow]="5">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <strong> {{value}}</strong>
-            </ng-template>
-        </ngx-datatable-column>
-
-        <ngx-datatable-column [flexGrow]="1">
-            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
-                <i *ngIf="!row.published" class="material-icons">visibility_off</i>
-                <i *ngIf="row.discount" class="material-icons">attach_money</i>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="{{'products.list.article' | translate}}"
-                              prop="article" [flexGrow]="1"></ngx-datatable-column>
-        <ngx-datatable-column name="{{'products.list.price' | translate}}"
-                              prop="price" [flexGrow]="1"></ngx-datatable-column>
-        <ngx-datatable-column name="{{'products.list.unitsInStock' | translate}}"
-                              prop="unitsInStock" [flexGrow]="1"></ngx-datatable-column>
-        <ngx-datatable-column name="{{'products.list.productCategoryName' | translate}}"
-                              prop="productCategoryName" [flexGrow]="3"></ngx-datatable-column>
-    </ngx-datatable>
+        <div class="col s12 m4 l2"></div>
+        <div class="col s12 m4 l8">
+            <pagination-controls (pageChange)="pageChange($event)" maxSize="10" id="server"></pagination-controls>
+        </div>
+        <div class="col s12 m4 l2"></div>
     </div>
 </div>

@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DAL.Models.Interfaces;
+using DAL.Models;
 
 namespace DAL.Models
 {
-    public class ApplicationRole : IdentityRole, IAuditableEntity
+    public class ApplicationRole : IdentityRole, IAuditedEntity
     {
         /// <summary>
         /// Initializes a new instance of <see cref="ApplicationRole"/>.
@@ -55,10 +55,8 @@ namespace DAL.Models
         /// Gets or sets the description for this role.
         /// </summary>
         public string Description { get; set; }
-        public string CreatedBy { get; set; }
-        public string UpdatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public DateTime UpdatedDate { get; set; }
+
+ 
 
 
         ///// <summary>
@@ -82,5 +80,10 @@ namespace DAL.Models
         /// Navigation property for claims in this role.
         /// </summary>
         public virtual List<IdentityRoleClaim<string>> Claims { get; set; }
+
+        public DateTime? Created { get; set; }
+        public DateTime? Modified { get; set; }
+        public string CreatedBy { get; set; }
+        public string ModifiedBy { get; set; }
     }
 }

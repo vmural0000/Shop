@@ -11,6 +11,7 @@ export class ProductsService {
     }
 
     readonly productsUrl = this.baseUrl + "api/products";
+    readonly productsPageUrl = this.baseUrl + "api/products/page";
     readonly productsByCategoryUrl = this.productsUrl + "/category";
     readonly productsByArticleUrl = this.productsUrl + "/barcode";
     readonly productsImportUrl = this.productsUrl + "/import";
@@ -36,8 +37,8 @@ export class ProductsService {
             });
     }
 
-    getProducts(): Observable<ProductList[]> {
-        return this.http.get(this.productsUrl, this.getAuthHeader())
+    getProducts(page: number, pageSize: number): Observable<any> {
+        return this.http.get(`${this.productsPageUrl}/${page}/${pageSize}`, this.getAuthHeader())
             .map(res => res.json())
             .catch(error => {
                 return this.handleError(error);
@@ -45,7 +46,7 @@ export class ProductsService {
     }
 
     getProduct(id: string): Observable<Product> {
-        return this.http.get(`${this.productsUrl}/${id}`)
+        return this.http.get(`${this.productsUrl}/${id}`, this.getAuthHeader())
             .map(res => res.json())
             .catch(error => {
                 return this.handleError(error);
@@ -53,31 +54,30 @@ export class ProductsService {
     }
 
     getProductsByArticle(article: string): Observable<Product> {
-        return this.http.get(`${this.productsByArticleUrl}/${article}`)
-            .map(res => res.json())
+        return this.http.get(`${this.productsByArticleUrl}/${article}`, this.getAuthHeader())
+            .map(res => res.json()) 
             .catch(error => {
                 return this.handleError(error);
             });
     }
 
     updateProduct(product: Product) {
-        return this.http.put(`${this.productsUrl}/${product.id}`, JSON.stringify(product))
-            .map(res => res.json())
+        return this.http.put(`${this.productsUrl}/${product.id}`, JSON.stringify(product), this.getAuthHeader(true))
             .catch(error => {
                 return this.handleError(error);
             });
     }
 
     createProduct(product: Product): Observable<void> {
-        return this.http.post(this.productsUrl, JSON.stringify(product))
-            .map(res => res.json())
+        return this.http.post(this.productsUrl, JSON.stringify(product), this.getAuthHeader(true))
+            .map(res => res.json()) //
             .catch(error => {
                 return this.handleError(error);
             });
     }
 
     deleteProduct(product: Product): Observable<void> {
-        return this.http.delete(`${this.productsUrl}/${product.id}`)
+        return this.http.delete(`${this.productsUrl}/${product.id}`, this.getAuthHeader())
             .map(res => res.json())
             .catch(error => {
                 return this.handleError(error);
@@ -86,7 +86,7 @@ export class ProductsService {
 
 
     importProducts(file: FormData) {
-        return this.http.post(this.productsImportUrl, file)
+        return this.http.post(this.productsImportUrl, file, this.getAuthHeader())
             .map(res => res.json())
             .catch(error => {
                 return this.handleError(error);
@@ -94,7 +94,7 @@ export class ProductsService {
     }
 
     exportProducts() {
-        return this.http.get(this.productsExportUrl)
+        return this.http.get(this.productsExportUrl, this.getAuthHeader())
             .map(res => {
                 window.open(this.productsExportUrl);
             })
@@ -104,7 +104,7 @@ export class ProductsService {
     }
 
     upload(id: string, input: FormData) {
-        return this.http.post(`${this.productsImageUrl}/${id}`, input)
+        return this.http.post(`${this.productsImageUrl}/${id}`, input, this.getAuthHeader())
             .map(res => res.json())
             .catch(error => {
                 return this.handleError(error);
@@ -112,7 +112,7 @@ export class ProductsService {
     }
 
     deleteImage(id: string, name: string): Observable<void> {
-        return this.http.delete(`${this.productsImageUrl}/${id}/${name}`)
+        return this.http.delete(`${this.productsImageUrl}/${id}/${name}`, this.getAuthHeader())
             .map(res => res.json())
             .catch(error => {
                 return this.handleError(error);

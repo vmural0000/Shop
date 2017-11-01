@@ -17,6 +17,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
 
 import {TranslateModule} from "@ngx-translate/core";
 import {SpinerComponent} from "../controls/spiner.component";
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
     imports: [
@@ -27,7 +28,9 @@ import {SpinerComponent} from "../controls/spiner.component";
         NgxDatatableModule,
         CKEditorModule,
         ImageUploadModule.forRoot(),
-        TranslateModule
+        TranslateModule,
+        NgxPaginationModule
+
     ],
     declarations: [
         ProductsComponent,
