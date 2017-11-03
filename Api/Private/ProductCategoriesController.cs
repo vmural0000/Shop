@@ -1,4 +1,5 @@
 using BLL.DTO;
+using BLL.DTO.ProductCategory;
 using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,9 @@ namespace Api.Private
 
         [HttpGet("list")]
         public IActionResult GetList() => Ok(_context.GetList());
+
+        [HttpGet("parent")]
+        public IActionResult GetParent() => Ok(_context.GetParent());
 
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] string id)
@@ -47,7 +51,7 @@ namespace Api.Private
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] ProductCategoryDto productCategory)
+        public IActionResult Post([FromBody] CreateProductCategoryDto productCategory)
         {
             if (!ModelState.IsValid)
             {

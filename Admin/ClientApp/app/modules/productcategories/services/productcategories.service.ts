@@ -1,7 +1,7 @@
 ﻿import {Injectable, Inject} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {ProductCategory} from "./productcategory.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 @Injectable()
 export class ProductCategoriesService {
@@ -10,6 +10,7 @@ export class ProductCategoriesService {
 
     readonly productCategoriesUrl = this.baseUrl + "api/productCategories";
     readonly productCategoriesListUrl = this.baseUrl + "api/productCategories/list";
+    readonly parentListUrl = this.baseUrl + "api/productCategories/parent";
 
     getProductCategories(): Observable<ProductCategory[]> {
         return this.http.get<ProductCategory[]>(this.productCategoriesUrl);
@@ -17,6 +18,10 @@ export class ProductCategoriesService {
 
     getProductCategoriesList(): Observable<any[]> {
         return this.http.get<any[]> (this.productCategoriesListUrl);
+    }
+
+    getParentList(): Observable<any[]> {
+        return this.http.get<any[]> (this.parentListUrl);
     }
 
     getProductCategory(id: string): Observable<ProductCategory> {
@@ -28,7 +33,10 @@ export class ProductCategoriesService {
     }
 
     createProductCategory(productCategory: ProductCategory): Observable<void> {
-        return this.http.post<void>(this.productCategoriesUrl, JSON.stringify(productCategory));
+
+        return this.http.post<void>(this.productCategoriesUrl, JSON.stringify(productCategory),{
+            headers: new HttpHeaders().set('Content-Type', 'application/json'),
+        });
     }
 
     deleteProductCategory(id: string): Observable<void> {

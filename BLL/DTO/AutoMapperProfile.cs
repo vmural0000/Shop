@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BLL.Core;
+using BLL.DTO.ProductCategory;
 using DAL.Models;
 using Microsoft.AspNetCore.Identity;
 
@@ -51,9 +52,12 @@ namespace BLL.DTO
             CreateMap<Product, ProductEditDto>()
                 .ReverseMap();
 
-            CreateMap<ProductCategory, ProductCategoryDto>()
+            CreateMap<DAL.Models.ProductCategory, ProductCategoryDto>()
                 .ReverseMap();
-            
+
+            CreateMap<DAL.Models.ProductCategory, CreateProductCategoryDto>()
+                          .ReverseMap();
+
 
             CreateMap<Order, OrderListDto>()
                 .ReverseMap();

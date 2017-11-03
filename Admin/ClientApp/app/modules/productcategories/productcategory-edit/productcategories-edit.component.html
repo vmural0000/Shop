@@ -1,1 +1,42 @@
-﻿
+﻿<div class="s12" *ngIf="loaded">
+    <mz-card>
+        <mz-card-content>
+            <button mz-button *ngIf="!_create && canUpdateProducts" [disabled]="!editProductForm.valid"
+                    (click)="update()">
+                <i mz-icon [icon]="'save'" [align]="'left'"></i><span>{{'general.Update' | translate}}</span>
+            </button>
+
+            <button mz-button *ngIf="_create && canCreateProducts" [disabled]="!editProductForm.valid"
+                    (click)="create()">
+                <i mz-icon [icon]="'plus'" [align]="'left'"></i><span>{{'general.Add' | translate}}</span>
+            </button>
+
+            <button mz-button class="red" *ngIf="!_create && canDeleteProducts" (click)="delete(product)">
+                <i mz-icon [icon]="'delete'" [align]="'left'"></i><span>{{'general.Delete' | translate}}</span>
+            </button>
+        </mz-card-content>
+    </mz-card>
+
+    <form #editProductForm="ngForm">
+        <mz-input-container class="col s12">
+            <i mz-icon-mdi mz-input-prefix [icon]="'format-title'"></i>
+            <input mz-input
+                   [(ngModel)]="productCategory.name" name="name"
+                   [label]="'products.management.name' | translate" [validate]="true"
+                   length="50" type="text" required
+                   pattern=".{3,50}">
+        </mz-input-container>
+
+        <mz-select-container class="col s9">
+            <select mz-select id="basic-select" [(ngModel)]="productCategory.parentId"
+                    name="parentId" [disabled]="!_create"
+                    [label]="'products.management.productCategoryId' | translate">
+                <option value="nullable">Виберіть категорію</option>
+                <option *ngFor="let category of parentCaterories" [value]="category.id">
+                    {{ category.name }}
+                </option>
+            </select>
+        </mz-select-container>
+
+    </form>
+</div>

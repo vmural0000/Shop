@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using DAL.Models;
 using AutoMapper;
 using BLL.DTO;
+using BLL.DTO.ProductCategory;
 using BLL.Helpers;
 using Newtonsoft.Json;
 
@@ -29,7 +30,7 @@ namespace BLL.Services
 
         public List<ProductCategoryDto> Get()
         {
-            var model =_context.ProductCategory.GetAllProductCategories();
+            var model = _context.ProductCategory.GetAllProductCategories().OrderBy(o => o.SequenceId);
             var tree = Tree();
             return Mapper.Map<List<ProductCategoryDto>>(model);
         }
@@ -40,6 +41,12 @@ namespace BLL.Services
             //var model = _context.ProductCategory.GetAllProductCategories();
             var tree = Tree();
             return Mapper.Map<IEnumerable<ProductCategoryDto>>(tree);
+        }
+
+        public IEnumerable<ProductCategoryDto> GetParent()
+        {
+            var model = _context.ProductCategory.GetAllProductCategories().Where(w => w.SequenceId.Length <= 4).OrderBy(o => o.SequenceId);
+            return Mapper.Map<IEnumerable<ProductCategoryDto>>(model);
         }
 
 
@@ -77,8 +84,10 @@ namespace BLL.Services
             }
         }
 
-        public ProductCategoryDto Post(ProductCategoryDto dto)
+        public ProductCategoryDto Post(CreateProductCategoryDto dto)
         {
+            //if(dto.SequenceId.lengh <= 4 )
+
             var productCategory = new ProductCategory();
             Mapper.Map(dto, productCategory);
 

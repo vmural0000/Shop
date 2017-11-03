@@ -19,7 +19,10 @@
 
   <ItemGroup>
     <!-- Files not to publish (note that the 'dist' subfolders are re-added below) -->
+    <Compile Remove="ClientApp\app\components\productcategories\**" />
     <Content Remove="ClientApp\**" />
+    <EmbeddedResource Remove="ClientApp\app\components\productcategories\**" />
+    <None Remove="ClientApp\app\components\productcategories\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,10 +34,6 @@
 
   <ItemGroup>
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="ClientApp\app\components\productcategories\productcategory-edit\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

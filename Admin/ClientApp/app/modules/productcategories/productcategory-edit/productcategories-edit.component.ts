@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductCategoriesService} from "../services/productcategories.service";
 import {ProductCategory} from "../services/productcategory.model";
-import {TranslationService} from "../../../shared/services/translation.service";
 import {AccountService} from "../../../shared/services/account.service";
 import {Permission} from "../../../components/roles/permission.model";
+import {AlertService} from "../../../shared/services/alert.service";
+import {ActivatedRoute, Params, Router} from "@angular/router";
+import {Subscription} from "rxjs/Subscription";
 
 @Component({
     selector: 'productcategories-edit',
@@ -11,169 +13,94 @@ import {Permission} from "../../../components/roles/permission.model";
     providers: [ProductCategoriesService]
 })
 export class ProductCategoriesEditComponent implements OnInit {
-    displayDialog: boolean;
-    selectedProductCategory: ProductCategory;
-    newProductCategory: boolean;
-
-    rows: ProductCategory[] = [];
-    rowsCache: ProductCategory[] = [];
-    loadingIndicator: boolean;
+    loaded: boolean;
+    _create: boolean = false;
+    private route$: Subscription;
+    id: string;////// id local not global
     productCategory = new ProductCategory();
+    loadingIndicator: boolean;
 
-    @ViewChild('dialogTmpl')
-    dialogTpl: TemplateRef<any>;
+    parentCaterories: ProductCategory[];
 
-    constructor(private dataService: ProductCategoriesService,
-                private translation: TranslationService,
-                private accountService: AccountService) {
+    constructor(private route: ActivatedRoute,
+                private router: Router,
+                private dataService: ProductCategoriesService,
+                private accountService: AccountService,
+                private alertService: AlertService) {
     }
 
     ngOnInit() {
-        if (this.canViewAllProducts)
+        if (this.canUpdateProducts)
+            this.route$ = this.route.params.subscribe(
+                (params: Params) => {
+                    this.id = params["id"];
+                }
+            );
+
+        if (this.router.url === "/productcategories/create") {
+            this._create = true;
+            this.loaded = true;
+            this.dataService.getParentList().subscribe(res => this.parentCaterories = res);
+        }
+        else {
             this.loadData();
+        }
     }
 
     loadData() {
-        //this.alertService.startLoadingMessage();
         this.loadingIndicator = true;
-        this.dataService.getProductCategories().subscribe(result => this.onDataLoadSuccessful(result),
-            error => this.onDataLoadFailed(error));
+        this.dataService.getProductCategory(this.id).subscribe(result => {
+                this.productCategory = result;
+                this.loadingIndicator = false;
+            }
+        );
     }
 
-    onDataLoadSuccessful(productCategories: ProductCategory[]) {
-        //this.alertService.stopLoadingMessage();
-        this.loadingIndicator = false;
-
-        this.rows = productCategories;
-
-        //productCategories.forEach((item, index, items) => {
-        //    (<any>item).index = index + 1;
-        //});
-
-        //this.rowsCache = [...productCategories];
-        //this.rows = productCategories;
-    }
-
-    onDataLoadFailed(error: any) {
-        //this.alertService.stopLoadingMessage();
-        this.loadingIndicator = false;
-
-        //this.alertService.showStickyMessage("Load Error", `Unable to retrieve products from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,MessageSeverity.error, error);
-    }
-
-    addProductCategory() {
-        this.displayDialog = true;
-        this.newProductCategory = true;
-        this.productCategory = new ProductCategory();
-    }
-
-
-    //save() {
-    //    let cars = [...this.rows];
-    //    if (this.newProductCategory)
-    //        cars.push(this.productCategory);
-    //    else
-    //        cars[this.findSelectedCarIndex()] = this.productCategory;
-
-    //    this.cars = cars;
-    //    this.car = null;
-    //    this.displayDialog = false;
-    //}
-    save() {
+    create() {
+        this.loadingIndicator = true;
         this.dataService.createProductCategory(this.productCategory).subscribe((result) => {
-                //this.alertService.stopLoadingMessage();
-                //this.alertService.showMessage("Success", this.productCategory.name + ' has been created.', MessageSeverity.success);
+                this.loadingIndicator = false;
+                this.alertService.success(this.productCategory.name + ' has been created.');
             },
             error => {
-                //this.alertService.stopLoadingMessage();
-                //this.alertService.showStickyMessage("Load Error", `Unable to retrieve products from the server.\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`,
-                //    MessageSeverity.error, error);
+                this.loadingIndicator = false;
+                this.alertService.error(error);
             });
-        this.displayDialog = false;
     }
 
-    onRowSelect(event) {
-        this.newProductCategory = false;
-        this.productCategory = this.cloneCar(event.data);
-        this.dataService.getProductCategory(event.id)
-            .subscribe((productCategory: ProductCategory) => {
-                    this.productCategory = productCategory;
-                    //this.dialogMngr.create({ title: productCategory.name, template: this.dialogTpl });
-                },
-                error => {
-                    //this.alertService.showStickyMessage("Load Error", `\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`, MessageSeverity.error, error);
-                });
-        this.displayDialog = true;
-    }
-
-    edit(row) {
+    update(row) {
         this.dataService.getProductCategory(row.id)
             .subscribe((productCategory: ProductCategory) => {
                     this.productCategory = productCategory;
-                    //this.dialogMngr.create({ title: productCategory.name, template: this.dialogTpl });
                 },
                 error => {
-                    //this.alertService.showStickyMessage("Load Error", `\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`, MessageSeverity.error, error);
+                    this.alertService.error(error);
                 });
     }
 
     delete() {
-        let index = this.findSelectedCarIndex();
-        //this.alertService.confirm({ title: 'Are you sure you want to delete the task?' }).subscribe({
-        //    next: (v) => {
-        //        this.dataService.deleteProductCategory(index)
-        //            .subscribe(() => {
-
-        //                this.rows = this.rows.filter((val, i) => i != index);
-        //                this.productCategory = null;
-        //                this.displayDialog = false;
-
-        //                //this.alertService.showMessage("Success",row.name + ' has been deleted.',MessageSeverity.success);
-        //            },
-        //            error => {
-        //                //this.alertService.showStickyMessage("Load Error", `\r\nErrors: "${Utilities.getHttpResponseMessage(error)}"`, MessageSeverity.error, error);
-        //            });
-        //    }
-        //});
+        this.alertService.confirm('Are you sure you want to delete the task?', () => {
+            this.dataService.deleteProductCategory(this.id)
+                .subscribe(() => {
+                        this.productCategory = null;
+                        this.alertService.success(this.productCategory.name + ' has been deleted.');
+                    },
+                    error => {
+                        this.alertService.error(error);
+                    });
+        });
     }
 
 
-    cloneCar(c: ProductCategory): ProductCategory {
-        let car = new ProductCategory();
-        for (let prop in c) {
-            car[prop] = c[prop];
-        }
-        return car;
+    get canCreateProducts() {
+        return this.accountService.userHasPermission(Permission.createProductsPermission);
     }
 
-    findSelectedCarIndex(): number {
-        return this.rows.indexOf(this.selectedProductCategory);
-    }
-
-
-    onSearchChanged(value: string) {
-        if (value) {
-            value = value.toLowerCase();
-
-            let filteredRows = this.rowsCache.filter(r => {
-                let isChosen = !value
-                    || r.name && r.name.toLowerCase().indexOf(value) !== -1;
-
-                return isChosen;
-            });
-
-            this.rows = filteredRows;
-        }
-        else {
-            this.rows = [...this.rowsCache];
-        }
-    }
-
-    get canViewAllProducts() {
-        return this.accountService.userHasPermission(Permission.readProductsPermission);
-    }
-
-    get canManageProducts() {
+    get canUpdateProducts() {
         return this.accountService.userHasPermission(Permission.updateProductsPermission);
+    }
+
+    get canDeleteProducts() {
+        return this.accountService.userHasPermission(Permission.deleteProductsPermission);
     }
 }
