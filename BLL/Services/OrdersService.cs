@@ -12,21 +12,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
+using Workers.Messaging;
 
 namespace BLL.Services
 {
-    public interface IOrdersService
-    {
-        Task<IEnumerable<OrderListDto>> GetOrdersAsync();
-        Task<OrderEditDto> GetOrderAsync(string id);
-        Task<OrderEditDto> PostOrderAsync(OrderEditDto model);
-        Task<OrderEditDto> PostOrderFromSite(OrderEditDto model);
-        Task<OrderEditDto> PutOrderAsync(string id, OrderEditDto model);
-        Task<OrderEditDto> PatchOrderAsync(string id, JsonPatchDocument<OrderEditDto> model);
-        Task<OrderEditDto> AcceptAsync(string id);
-        Task DeleteAsync(string id);
-    }
-
     public class OrdersService : IOrdersService
     {
         private readonly ApplicationDbContext _context;
@@ -330,12 +319,12 @@ namespace BLL.Services
 
             string message = "";
 
-            (bool success, string errorMsg) response = await EmailSender.SendEmailAsync(recepientName, order.Counterparty.Email, "Test Email from QuickApp", message);
+            //(bool success, string errorMsg) response = await EmailSender.SendEmailAsync(recepientName, order.Counterparty.Email, "Test Email from QuickApp", message);
 
-            if (response.success)
-                _logger.LogInformation(0, "Email sent success");
-            else
-                _logger.LogError(0, response.errorMsg, "Email sent error");
+            //if (response.success)
+            //    _logger.LogInformation(0, "Email sent success");
+            //else
+            //    _logger.LogError(0, response.errorMsg, "Email sent error");
         }
 
         private void ExportToPdf(Order order)

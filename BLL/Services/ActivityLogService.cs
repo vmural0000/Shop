@@ -12,13 +12,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
-    public interface IActivityLogService
-    {
-        IEnumerable<ActivityLogDto> Get();
-        IEnumerable<ActivityLogDto> Get(string resourceId);
-        Task Post(string resourceId, ActivityType type = ActivityType.ReadItem);
-    }
-
     public class ActivityLogService : IActivityLogService
     {
         private readonly ApplicationDbContext _unitOfWork;

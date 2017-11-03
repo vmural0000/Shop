@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CartService } from '../../shared/cart.service';
+import { CartService } from './cart.service';
 import { Subscription } from 'rxjs/Subscription';
 
 @Component({

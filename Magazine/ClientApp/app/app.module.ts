@@ -14,23 +14,23 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+
+
 import { CartComponent } from './containers/cart/cart.component';
 import { CartDetailsComponent } from './containers/cart/cart-details/cart-details.component';
+import { CartService } from './containers/cart/cart.service';
 
 
 import { HomeComponent } from './containers/home/home.component';
 import { ProductsComponent } from './containers/products/products.component';
 import { ProductDetailComponent } from './containers/product-detail/product-detail.component';
-import { NotFoundComponent } from './containers/not-found/not-found.component';
 
 
 
 import { LinkService } from './shared/link.service';
 import { CategoriesService } from './shared/categories.service';
-import { CartService } from './shared/cart.service';
 // import { ConnectionResolver } from './shared/route.resolver';
 import { ORIGIN_URL } from './shared/constants/baseurl.constants';
 import { TransferHttpModule } from '../modules/transfer-http/transfer-http.module';
@@ -53,7 +53,6 @@ export function createTranslateLoader(http: Http, baseHref) {
         ProductsComponent,
         ProductDetailComponent,
         HomeComponent,
-        NotFoundComponent,
         CartComponent,
         CartDetailsComponent
     ],
@@ -76,11 +75,7 @@ export function createTranslateLoader(http: Http, baseHref) {
 
         // App Routing
         RouterModule.forRoot([
-            {
-                path: '',
-                redirectTo: 'home',
-                pathMatch: 'full'
-            },
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
             {
                 path: 'home', component: HomeComponent,
 
@@ -120,27 +115,14 @@ export function createTranslateLoader(http: Http, baseHref) {
                     ]
                 }
             },
-            { path: 'cart', component: CartDetailsComponent   },
-
-            { path: 'lazy', loadChildren: './containers/lazy/lazy.module#LazyModule'},
-
-            {
-                path: '**', component: NotFoundComponent,
-                data: {
-                    title: '404 - Not found',
-                    meta: [{ name: 'description', content: '404 - Error' }],
-                    links: [
-                        { rel: 'canonical', href: 'http://blogs.example.com/bootstrap/something' },
-                        { rel: 'alternate', hreflang: 'es', href: 'http://es.example.com/bootstrap-demo' }
-                    ]
-                }
-            }
+            { path: 'cart', component: CartDetailsComponent },
+            { path: '**', redirectTo: 'home', pathMatch: 'full' }
         ], {
-          // Router options
-          useHash: false,
-          preloadingStrategy: PreloadAllModules,
-          initialNavigation: 'enabled'
-        })
+                // Router options
+                useHash: false,
+                preloadingStrategy: PreloadAllModules,
+                initialNavigation: 'enabled'
+            })
     ],
     providers: [
         LinkService,

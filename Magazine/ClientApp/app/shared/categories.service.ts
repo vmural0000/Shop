@@ -20,6 +20,6 @@ export class CategoriesService {
         //      The Client then re-uses this Http result instead of hitting the server again!
 
         //  NOTE : transferHttp also automatically does .map(res => res.json()) for you, so no need for these calls
-        return this.transferHttp.get(`http://vmural.tk/api/public/categories/list`);
+        return this.transferHttp.get(`http://api.forfun.dp.ua/api/public/categories/list`);
     }
 }

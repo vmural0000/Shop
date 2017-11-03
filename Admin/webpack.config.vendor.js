@@ -19,10 +19,7 @@ const nonTreeShakableModules = [
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',
-    '@swimlane/ngx-datatable/release/index.css',
-    '@swimlane/ngx-datatable/release/themes/material.css',
-    '@swimlane/ngx-datatable/release/assets/icons.css',
-    'materialize-css/dist/css/materialize.min.css',
+    //'materialize-css/sass/materialize.scss',
     //'materialize-css/dist/js/materialize.min.js',
     'mdi/css/materialdesignicons.min.css',
     'jquery'

@@ -1,6 +1,6 @@
 ﻿import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ProductsService } from '../../shared/products.service';
-import { CartService } from '../../shared/cart.service';
+import { CartService } from '../cart/cart.service';
 import { Product } from '../../models/product.model';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';

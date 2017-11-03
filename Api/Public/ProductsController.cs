@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using BLL.DTO;
 using Microsoft.AspNetCore.Mvc;
 using BLL.Services.Public;
+using Workers.Messaging;
 
 namespace Api.Api.Public
 {
@@ -20,7 +21,11 @@ namespace Api.Api.Public
 
         [Produces(typeof(IEnumerable<ProductListDto>))]
         [HttpGet]
-        public IActionResult Get() => Ok(_service.Get());
+        public IActionResult Get()
+        {
+            EmailSender.SendEmail("vmural", "vmural@hotmail.com", "Test From Job", "Done");
+            return Ok(_service.Get());
+        }
 
         [Produces(typeof(IEnumerable<ProductListDto>))]
         [HttpGet("getlatest")]

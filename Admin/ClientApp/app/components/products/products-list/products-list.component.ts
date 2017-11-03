@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { fadeInOut } from '../../../shared/helpers/animations';
 
@@ -9,7 +9,6 @@ import { TranslationService } from "../../../shared/services/translation.service
 
 import { Permission } from '../../roles/permission.model';
 import { ProductList } from '../services/product.model';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
 
 
 @Component({
@@ -22,14 +21,11 @@ export class ProductsListComponent implements OnInit {
 
     loadingIndicator: boolean;
     rows: ProductList[] = [];
-    temp: ProductList[] = [];
     private sub: any;
 
     page: number;
     total: number;
     itemsPerPage: number = 20;
-
-    @ViewChild(DatatableComponent) table: DatatableComponent;
 
     constructor(private router: Router,
         private data: ProductsService,
@@ -58,7 +54,6 @@ export class ProductsListComponent implements OnInit {
             this.rows = result.data;
             this.total = result.paging.totalItems;
             this.page = result.paging.currentPage;
-            this.temp = [...this.rows];
             this.loadingIndicator = false;
 
         }, error => {
@@ -95,16 +90,7 @@ export class ProductsListComponent implements OnInit {
     updateFilter(event: any) {
         const val = event.target.value.toLowerCase();
 
-        // filter our data
-        const temp = this.temp.filter(function (d) {
-            return d.name.toLowerCase().indexOf(val) !== -1 ||
-                d.article.toLowerCase().indexOf(val) !== -1 || !val;
-        });
-
-        // update the rows
-        this.rows = temp;
-        // Whenever the filter changes, always go back to the first page
-        this.table.offset = 0;
+      
     }
 
 

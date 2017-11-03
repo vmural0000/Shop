@@ -8,12 +8,10 @@ import { LocalStoreManager } from '../../components/authentication/services/loca
 import { AppTitleService } from '../../shared/services/app-title.service';
 import { AuthService } from '../../components/authentication/services/auth.service';
 import { ConfigurationService } from '../../shared/services/configuration.service';
-import { Permission } from '../../components/roles/permission.model';
-
-@Component({
+@Component({  
     selector: "app",
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss','../../styles.scss']
+    styleUrls: ['./app.component.scss', '../../styles.scss','../../assets/sass/materialize.scss']
 })
 
 export class AppComponent implements OnInit {

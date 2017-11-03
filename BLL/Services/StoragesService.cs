@@ -12,15 +12,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
-    public interface IStoragesService
-    {
-        IEnumerable<StorageDto> Get();
-        StorageDto Get(string id);
-        void Post(StorageDto dto);
-        void Put(string id, StorageDto dto);
-        bool Delete(string id);
-    }
-
     public class StoragesService : IStoragesService
     {
         private readonly ApplicationDbContext _unitOfWork;

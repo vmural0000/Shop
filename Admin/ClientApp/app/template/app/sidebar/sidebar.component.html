@@ -1,11 +1,10 @@
 ﻿<mz-sidenav #sidenav
-            [id]="'sidenav'"
             [closeOnClick]="true"
             [collapseButtonId]="'btn-sidenav'"
             [fixed]="true">
 
-    <ul>
-        <li routerLinkActive="active" class="bold">
+  
+    <li routerLinkActive="active" class="bold">
             <a [routerLink]="['/dashboard']" class="waves-effect waves-teal"><i class="material-icons text-primary">home</i><span>{{'app.Dashboard' | translate}}</span></a>
         </li>
         <li routerLinkActive="active" class="bold">
@@ -35,7 +34,6 @@
         <li routerLinkActive="active" class="bold">
             <a [routerLink]="['/activity']" class="waves-effect waves-teal"><i class="material-icons text-danger">history</i><span>{{'app.ActivityLogs' | translate}}</span></a>
         </li>
-    </ul>
 
 </mz-sidenav>
 

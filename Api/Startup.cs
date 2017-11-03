@@ -21,12 +21,15 @@ using System.Reflection;
 using BLL.Core;
 using BLL.DTO;
 using DAL.Core.Interfaces;
+using Hangfire;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using Workers.Messaging;
+using Workers.Messaging.Jobs;
 
 namespace Api
 {
@@ -155,6 +158,10 @@ namespace Api
             });
 
 
+
+            app.UseHangfireServer();
+            app.UseHangfireDashboard();
+
             // Configure Cors if enabled
             app.UseCors(builder => builder
                 //.WithOrigins("http://admin.forfun.dp.ua")
@@ -190,12 +197,15 @@ namespace Api
             {
                 Host = Configuration["SmtpConfig:Host"],
                 Port = int.Parse(Configuration["SmtpConfig:Port"]),
-                UseSSL = bool.Parse(Configuration["SmtpConfig:UseSSL"]),
+                UseSsl = bool.Parse(Configuration["SmtpConfig:UseSSL"]),
                 Name = Configuration["SmtpConfig:Name"],
                 Username = Configuration["SmtpConfig:Username"],
                 EmailAddress = Configuration["SmtpConfig:EmailAddress"],
                 Password = Configuration["SmtpConfig:Password"]
             };
+
+            services.AddHangfire(x => x.UseSqlServerStorage(Configuration["Data:DefaultConnection:ConnectionString"]));
+          
 
             Mapper.Initialize(cfg =>
             {

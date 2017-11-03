@@ -1,10 +1,6 @@
-﻿using System;
-using System.IO;
-using AspNet.Security.OpenIdConnect.Primitives;
+﻿using AspNet.Security.OpenIdConnect.Primitives;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace BLL.Helpers
@@ -34,21 +30,6 @@ namespace BLL.Helpers
                 .Where(c => c.Type == OpenIdConnectConstants.Claims.Role)
                 .Select(c => c.Value)
                 .ToArray();
-        }
-
-        public static async Task<string> Email()
-        {
-            string recepientName = "QickApp Tester"; //         <===== Put the recepient's name here
-            string recepientEmail = "vmural@hotmail.com"; //   <===== Put the recepient's email here
-
-            string message = EmailTemplates.GetTestEmail(recepientName, DateTime.UtcNow);
-
-            (bool success, string errorMsg) response = await EmailSender.SendEmailAsync(recepientName, recepientEmail, "Test Email from QuickApp", message);
-
-            if (response.success)
-                return "Success";
-
-            return "Error: " + response.errorMsg;
         }
     }
 }

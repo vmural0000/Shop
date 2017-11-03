@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ProductsService } from '../../shared/products.service';
-import { CartService } from '../../shared/cart.service';
+import { CartService } from '../cart/cart.service';
 import { Product } from '../../models/product.model';
 import { TranslateService } from '@ngx-translate/core';
 

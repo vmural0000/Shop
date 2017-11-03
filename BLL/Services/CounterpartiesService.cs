@@ -18,19 +18,6 @@ using Newtonsoft.Json;
 
 namespace BLL.Services
 {
-    public interface ICounterpartiesService
-    {
-        Task<IEnumerable<CounterpartyDto>> Get();
-        CounterpartyDto Get(string id);
-        IEnumerable<CounterpartyDto> GetFromPhoneNumber(string phoneNumber);
-        IEnumerable<string> GetFromName(string name);
-        Task<IEnumerable<Settlement>> GetCities(string city);
-        Task<IEnumerable<Warehouse>> GetWarehouses(string city);
-        CounterpartyDto Post(CounterpartyDto dto);
-        void Put(string id, CounterpartyDto dto);
-        bool Delete(string id);
-    }
-
     public class CounterpartiesService : ICounterpartiesService
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -164,62 +151,5 @@ namespace BLL.Services
                 return false;
             }
         }
-
-        async Task GetWarehouse(int i)
-        {
-            var client = new HttpClient();
-            var uri = "https://api.novaposhta.ua/v2.0/json/";
-            HttpResponseMessage response;
-            byte[] byteData = Encoding.UTF8.GetBytes("{\"apiKey\":\"7af47edd7ce9cca70bc9bc29a52d91c7\"," +
-                                                     "\"modelName\":\"AddressGeneral\",\"calledMethod\":\"getWarehouses\",\"methodProperties\":{\"Page\":\"" + i + "\",\"Limit\":\"500\"}}");
-            var list = new List<Warehouse>();
-            using (var content = new ByteArrayContent(byteData))
-            {
-                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                response = await client.PostAsync(uri, content);
-
-                var x = response.Content.ReadAsStringAsync();
-
-                var result = JsonConvert.DeserializeObject<RootObject>(x.Result);
-                list = result.data;
-            }
-
-            try
-            {
-               await _context.Warehouses.AddRangeAsync(list);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-                var xds = ex;
-            }
-        }
-    }
-
-
-    //class NewPostModel
-    //{
-    //    private string apiKey { get; set; } = "7af47edd7ce9cca70bc9bc29a52d91c7";
-    //    string modelName { get; set; }
-    //    string calledMethod { get; set; }
-    //    string methodProperties: any[];
-    //}
-
-    public class Info
-    {
-        public int totalCount { get; set; }
-    }
-
-    public class RootObject
-    {
-        public bool success { get; set; }
-        public List<Warehouse> data { get; set; }
-        public List<object> errors { get; set; }
-        public List<object> warnings { get; set; }
-        public Info info { get; set; }
-        public List<object> messageCodes { get; set; }
-        public List<object> errorCodes { get; set; }
-        public List<object> warningCodes { get; set; }
-        public List<object> infoCodes { get; set; }
     }
 }

@@ -13,16 +13,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BLL.Services
 {
-    public interface IShipmentsService
-    {
-        IEnumerable<ShipmentDto> Get();
-        ShipmentDto Get(string id);
-        ShipmentDto Create(string orderId);
-        Task<ShipmentDto> GetConducted(string id);
-        void Put(string id, ShipmentDto dto);
-        bool Delete(string id);
-    }
-
     public class ShipmentsService : IShipmentsService
     {
         private readonly ApplicationDbContext _unitOfWork;

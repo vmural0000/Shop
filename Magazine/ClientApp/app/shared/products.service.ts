@@ -16,18 +16,18 @@ export class ProductsService {
     }
 
     getProducts(id: string, page: number, pageSize: number): Observable<Product[]> {
-        return this.transferHttp.get(`http://vmural.tk/api/public/products/category/${id}/${page}/${pageSize}`);
+        return this.transferHttp.get(`http://api.forfun.dp.ua/api/public/products/category/${id}/${page}/${pageSize}`);
     }
 
     getLatestProducts(): Observable<Product[]> {
-        return this.transferHttp.get(`http://vmural.tk/api/public/products/getlatest`);
+        return this.transferHttp.get(`http://api.forfun.dp.ua/api/public/products/getlatest`);
     }
 
     getPopularProducts(): Observable<Product[]> {
-        return this.transferHttp.get(`http://vmural.tk/api/public/products/getpopular`);
+        return this.transferHttp.get(`http://api.forfun.dp.ua/api/public/products/getpopular`);
     }
 
     getOfferProduct(): Observable<Product> {
-        return this.transferHttp.get(`http://vmural.tk/api/public/products/getoffer`);
+        return this.transferHttp.get(`http://api.forfun.dp.ua/api/public/products/getoffer`);
     }
 }

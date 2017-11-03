@@ -17,12 +17,4 @@ namespace DAL.Models
         
         public ICollection<Order> Orders { get; set; }
     }
-
-
-    public enum Gender
-    {
-        None,
-        Female,
-        Male
-    }
 }
