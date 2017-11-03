@@ -5,7 +5,7 @@ import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
 
-import { AuthService } from '../../authentication/services/auth.service';
+import { AuthService } from '../../../modules/authentication/services/auth.service';
 import { Notification } from '../notification.model';
 
 

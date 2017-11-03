@@ -20,6 +20,7 @@ using BLL.Services;
 using System.Reflection;
 using BLL.Core;
 using BLL.DTO;
+using CryptoHelper;
 using DAL.Core.Interfaces;
 using Hangfire;
 using Microsoft.AspNetCore;
@@ -28,6 +29,8 @@ using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Serialization;
 using NLog.Extensions.Logging;
 using NLog.Web;
+using OpenIddict.Core;
+using Swashbuckle.AspNetCore.Swagger;
 using Workers.Messaging;
 using Workers.Messaging.Jobs;
 
@@ -118,6 +121,20 @@ namespace Api
                 //options.UseJsonWebTokens(); //Use JWT if preferred
             });
 
+            services.AddSwaggerGen(c =>
+            {
+                c.AddSecurityDefinition("BearerAuth", new ApiKeyScheme
+                {
+                    Name = "Authorization",
+                    Description = "Login with your bearer authentication token. e.g. Bearer <auth-token>",
+                    In = "header",
+                    Type = "apiKey"
+                });
+
+                c.SwaggerDoc("v1", new Info { Title = "QuickApp API", Version = "v1" });
+            });
+
+
             //Add Custom Services
             AddServices(services);
         }
@@ -158,7 +175,11 @@ namespace Api
             });
 
 
-
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "QuickApp API V1");
+            });
             app.UseHangfireServer();
             app.UseHangfireDashboard();
 
@@ -178,7 +199,6 @@ namespace Api
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
-
 
             //try
             //{
@@ -273,7 +293,7 @@ namespace Api
             services.AddScoped<IActivityLogService, ActivityLogService>();
             
             // Repositories
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IUnitOfWork, HttpUnitOfWork>();
             services.AddScoped<IAccountManager, AccountManager>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

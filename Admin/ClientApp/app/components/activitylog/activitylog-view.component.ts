@@ -1,19 +1,15 @@
 import { Component } from '@angular/core';
-import { fadeInOut } from '../../shared/helpers/animations';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from "rxjs/Rx";
 
-import { AccountService } from "../../shared/services/account.service";
 import { ActivityLogsService } from './activities.service';
 import { AlertService } from '../../shared/services/alert.service';
 import { ActivityLog, ActivityType } from './activitylog.model';
 import { TranslationService } from "../../shared/services/translation.service";
-import { Permission } from '../roles/permission.model';
 
 @Component({
     selector: 'activitylog-view',
     templateUrl: './activitylog-view.component.html',
-    animations: [fadeInOut],
     providers: [ActivityLogsService]
 })
 export class ActivityLogViewComponent {
@@ -25,11 +21,9 @@ export class ActivityLogViewComponent {
 
     constructor(
         private route: ActivatedRoute,
-        private router: Router,
         private dataService: ActivityLogsService,
         private alertService: AlertService,
-        private translation: TranslationService,
-        private accountService: AccountService, ) { }
+        private translation: TranslationService) { }
 
     ngOnInit() {
         this.route$ = this.route.params.subscribe(

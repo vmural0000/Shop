@@ -1,12 +1,12 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using BLL.Services;
-using Microsoft.AspNetCore.Authorization;
 using BLL.DTO;
 using BLL.Policies;
+using BLL.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Api.Private
+namespace Api.Private
 {
     [Authorize]
     [Produces("application/json")]

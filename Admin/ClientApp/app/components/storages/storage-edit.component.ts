@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { fadeInOut } from '../../shared/helpers/animations';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from "rxjs/Rx";
 
@@ -14,7 +13,6 @@ import { Permission } from '../roles/permission.model';
 @Component({
     selector: 'storage-edit',
     templateUrl: './storage-edit.component.html',
-    animations: [fadeInOut],
     providers: [StoragesService]
 })
 export class StorageEditComponent {

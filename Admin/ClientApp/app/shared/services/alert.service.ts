@@ -39,7 +39,6 @@ export class AlertService {
     error(detail: string = "", error: string = "") {
         this.toastService.show(detail, 4000, 'danger');
         //this.messageService.add({ severity: "error", summary: this.translation.get("alert.Error"), detail: detail });
-        console.error(Utilities.getHttpResponseMessage(error));
     }
     warn(detail: string = "") {
         //this.messageService.add({ severity: "warn", summary: this.translation.get("alert.Error"), detail: detail });

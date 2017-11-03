@@ -4,7 +4,7 @@ using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Api.Private
+namespace Api.Private
 {
     [Authorize]
     [Route("api/[controller]")]

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using BLL.Services;
+﻿using System.Threading.Tasks;
 using BLL.DTO;
+using BLL.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Api.Private
+namespace Api.Private
 {
     [Authorize]
     [Route("api/[controller]")]

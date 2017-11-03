@@ -1,0 +1,257 @@
+﻿<div class="row">
+
+    <spiner [active]="loadingIndicator"></spiner>
+
+    <div class="s12" *ngIf="loaded">
+        <mz-card>
+            <mz-card-content>
+                <button mz-button *ngIf="!_create && canUpdateProducts" [disabled]="!editProductForm.valid" (click)="update()">
+                    <i mz-icon [icon]="'save'" [align]="'left'"></i><span>{{'general.Update' | translate}}</span>
+                </button>
+
+                <button mz-button *ngIf="_create && canCreateProducts" [disabled]="!editProductForm.valid" (click)="create()">
+                    <i mz-icon [icon]="'plus'" [align]="'left'"></i><span>{{'general.Add' | translate}}</span>
+                </button>
+
+                <button mz-button class="red" *ngIf="!_create && canDeleteProducts" (click)="delete(product)">
+                    <i mz-icon [icon]="'delete'" [align]="'left'"></i><span>{{'general.Delete' | translate}}</span>
+                </button>
+            </mz-card-content>
+        </mz-card>
+
+        <div class="row">
+            <form #editProductForm="ngForm">
+                <div class="col s9">
+                    <mz-card>
+                        <mz-card-content>
+                            <div class="row">
+                                <mz-input-container class="col s12">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'format-title'"></i>
+                                    <input mz-input
+                                           [(ngModel)]="product.name" name="name"
+                                           [label]="'products.management.name' | translate" [validate]="true"
+                                           [dataError]="'Email is invalid'" length="100" type="text" required
+                                           pattern=".{3,100}">
+                                </mz-input-container>
+                            </div>
+                            <div class="row">
+                                <mz-select-container class="col s9">
+                                    <select mz-select id="basic-select" [(ngModel)]="product.productCategoryId"
+                                            name="productCategoryId" [disabled]="!_create"
+                                            [label]="'products.management.productCategoryId' | translate">
+                                        <option *ngFor="let category of categories" [value]="category.id">
+                                            {{ category.name }}
+                                        </option>
+                                    </select>
+                                </mz-select-container>
+                                <mz-input-container class="col s3">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'format-strikethrough-variant'"></i>
+                                    <input mz-input
+                                           [(ngModel)]="product.price" name="price"
+                                           [label]="'products.management.price' | translate"
+                                           [validate]="true"
+                                           [dataError]="'Email is invalid'"
+                                           type="number" min="0">
+                                </mz-input-container>
+                            </div>
+                            <div class="row">
+                                <mz-input-container class="col s6">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'barcode'"></i>
+                                    <input mz-input [(ngModel)]="product.barCode" name="barCode"
+                                           [label]="'products.management.barCode' | translate" length="13" type="text">
+                                </mz-input-container>
+                            </div>
+                            <div class="row">
+                                <mz-input-container class="col s6">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'sitemap'"></i>
+                                    <input mz-input [(ngModel)]="product.brand" name="brand"
+                                           [label]="'products.management.brand' | translate" [validate]="true"
+                                           [dataError]="'Email is invalid'" length="50" type="text" required
+                                           pattern=".{3,50}">
+                                </mz-input-container>
+                                <mz-input-container class="col s6">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'vector-combine'"></i>
+                                    <input mz-input [(ngModel)]="product.manufactures" name="manufactures"
+                                           [label]="'products.management.manufactures' | translate" length="70"
+                                           type="text">
+                                </mz-input-container>
+                            </div>
+                            <div class="row">
+                                <mz-input-container class="col s3">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'arrow-expand-all'"></i>
+                                    <input mz-input [(ngModel)]="product.width" name="width"
+                                           [label]="'products.management.width' | translate" type="number" step="0.01">
+                                </mz-input-container>
+                                <mz-input-container class="col s3">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'arrow-expand-up'"></i>
+                                    <input mz-input [(ngModel)]="product.height" name="height"
+                                           [label]="'products.management.height' | translate" type="number" step="0.01">
+                                </mz-input-container>
+                                <mz-input-container class="col s3">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'arrow-expand-right'"></i>
+                                    <input mz-input [(ngModel)]="product.length" name="length"
+                                           [label]="'products.management.length' | translate" type="number" step="0.01">
+                                </mz-input-container>
+                                <mz-input-container class="col s3">
+                                    <i mz-icon-mdi mz-input-prefix [icon]="'arrow-collapse-all'"></i>
+                                    <input mz-input [(ngModel)]="product.weight" name="weight"
+                                           [label]="'products.management.weight' | translate" type="number" step="0.01">
+                                </mz-input-container>
+                            </div>
+                        </mz-card-content>
+                    </mz-card>
+
+                    <mz-card>
+                        <mz-card-content>
+                            <div class="row">
+                                <mz-input-container class="col s12">
+                                    <input mz-input
+                                           [(ngModel)]="product.metaTitle" name="metaTitle"
+                                           [label]="'products.management.metaTitle' | translate"
+                                           [validate]="true"
+                                           [dataError]="'Email is invalid'"
+                                           length="70" type="text" required pattern=".{20,70}">
+                                </mz-input-container>
+                                <mz-textarea-container class="col s12">
+                                    <textarea mz-textarea
+                                              [(ngModel)]="product.metaDescription" name="metaDescription"
+                                              [label]="'products.management.metaDescription' | translate"
+                                              length="160" type="text" required pattern=".{20,160}"></textarea>
+                                </mz-textarea-container>
+                                <mz-input-container class="col s12">
+                                    <input mz-input
+                                           [(ngModel)]="product.metaKeywords" name="metaKeywords"
+                                           [label]="'products.management.metaKeywords' | translate"
+                                           [validate]="true"
+                                           [dataError]="'Email is invalid'"
+                                           length="100" type="text" required pattern=".{20,100}">
+                                </mz-input-container>
+                            </div>
+                        </mz-card-content>
+                    </mz-card>
+                    <mz-card>
+                        <mz-card-content>
+                            <div class="row">
+                                <mz-input-container class="col s12">
+                                    <input mz-input
+                                           [(ngModel)]="product.shortDescription" name="shortDescription"
+                                           [label]="'products.management.shortDescription' | translate"
+                                           [validate]="true"
+                                           [dataError]="'Email is invalid'"
+                                           length="70" type="text" required pattern=".{10,70}">
+                                </mz-input-container>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <ckeditor [(ngModel)]="product.description"
+                                              name="description" #description="ngModel"
+                                              [readonly]="false"
+                                              (change)="onChange($event)"
+                                              (focus)="onFocus($event)"
+                                              (blur)="onBlur($event)"
+                                              debounce="500">
+                                    </ckeditor>
+                                    <!--<label class="active">{{'products.management.description' | translate}}</label>-->
+                                </div>
+                            </div>
+                        </mz-card-content>
+                    </mz-card>
+
+                    <mz-card>
+                        <mz-card-content>
+                            <div class="row">
+                                <div class="col s12">
+                                    <img src="/ProductImages/{{product.id}}/{{product.image}}" style="width: 300px;" />
+                                    <image-upload url="http://localhost:55126/api/products/image/{{product.id}}" [extensions]="['jpeg','png']" (removed)="onRemoved($event)" [headers]="myHeaders"></image-upload>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div *ngFor="let image of product.images">
+                                    <mz-card class="col s3 card_img">
+                                        <mz-card-content>
+                                            <img src="/ProductImages/{{product.id}}/{{image}}">
+                                        </mz-card-content>
+                                        <mz-card-action>
+                                            <span><a href="javascript:void(0)" (click)="setGeneral(image)">Головна</a></span>
+                                            <span><a href="javascript:void(0)" (click)="imageRemove(image)">Видалити</a></span>
+                                        </mz-card-action>
+                                    </mz-card>
+
+                                </div>
+                            </div>
+                        </mz-card-content>
+                    </mz-card>
+                </div>
+                <div class="col s3">
+                    <mz-card>
+                        <mz-card-content>
+                            <div class="row">
+                                <div class="col s12">
+                                    {{'products.management.unitsInStock' | translate}}: {{product.unitsInStock}}
+                                    шт.<br />
+                                    {{'products.management.article' | translate}}: {{product.article}}
+                                    <hr />
+                                    <mz-checkbox-container class="col s12">
+                                        <input mz-checkbox [label]="'products.management.published' | translate"
+                                               type="checkbox" [(ngModel)]="product.published" name="published"
+                                               id="published">
+                                    </mz-checkbox-container>
+                                    <mz-checkbox-container class="col s12">
+                                        <input mz-checkbox [label]="'products.management.discountAllowed' | translate"
+                                               type="checkbox" [(ngModel)]="product.discountAllowed"
+                                               name="discountAllowed" id="discountAllowed">
+                                    </mz-checkbox-container>
+                                    <mz-checkbox-container class="col s12">
+                                        <input mz-checkbox [label]="'products.management.discount' | translate"
+                                               type="checkbox" [(ngModel)]="product.discount" name="discount"
+                                               [disabled]="!product.discountAllowed" id="discount">
+                                    </mz-checkbox-container>
+
+                                    <mz-datepicker-container class="col s12">
+                                        <i mz-icon-mdi mz-input-prefix
+                                           [icon]="'calendar'">
+                                        </i>
+                                        <input mz-datepicker [(ngModel)]="product.discountToDateTime"
+                                               name="discountToDateTime" [disabled]="!product.discount"
+                                               [label]="'products.management.discountToDateTime' | translate"
+                                               id="datepicker"
+                                               type="text">
+                                    </mz-datepicker-container>
+                                    <mz-input-container class="col s12">
+                                        <input mz-input [(ngModel)]="product.discountPrice" name="discountPrice"
+                                               [label]="'products.management.discountPrice' | translate"
+                                               type="number" min="0" max="99" [disabled]="!product.discountAllowed">
+                                    </mz-input-container>
+                                    <mz-input-container class="col s12">
+                                        <input mz-input [(ngModel)]="product.maxDiscountPercentage"
+                                               name="maxDiscountPercentage"
+                                               [label]="'products.management.maxDiscountPercentage' | translate"
+                                               type="number" min="0" max="99" [disabled]="!product.discountAllowed">
+                                    </mz-input-container>
+                                </div>
+                            </div>
+                        </mz-card-content>
+                    </mz-card>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .card_img img {
+        display: block;
+        position: relative;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        max-height: 70px;
+    }
+
+    .card_img.card.card-content {
+        height: 200px;
+    }
+</style>

@@ -14,26 +14,31 @@ namespace Workers.Messaging
         public static SmtpConfig Configuration;
 
 
-        public static void SendEmail(string recepientName, string recepientEmail, string subject, string body, bool isHtml = true)
+        public static async Task SendEmail(string recepientEmail, string subject, string body, bool isHtml = true)
         {
-            try
+            await Task.Run(() =>
             {
-                EmailModel mail = new EmailModel();
-                mail.To = recepientEmail;
-                mail.Subject = subject;
-                mail.Body = body;
-                mail.IsHtml = isHtml;
+                try
+                {
+                    EmailModel mail = new EmailModel
+                    {
+                        To = recepientEmail,
+                        Subject = subject,
+                        Body = body,
+                        IsHtml = isHtml
+                    };
 
-                SmtpConfig config = Configuration;
-                if (config != null)
-                    BackgroundJob.Schedule(() => ExecuteAsync(mail, config), TimeSpan.FromMinutes(2));
-                else
-                    throw new Exception("Email configuration is not valid");
-            }
-            catch (Exception ex)
-            {
-                //Utilities.CreateLogger<EmailSender>().LogError(LoggingEvents.SEND_EMAIL, ex, "An error occurred whilst sending email");
-            }
+                    var config = Configuration;
+                    if (config != null)
+                        BackgroundJob.Enqueue(() => ExecuteAsync(mail, config));
+                    else
+                        throw new Exception("Email configuration is not valid");
+                }
+                catch (Exception ex)
+                {
+                    //Utilities.CreateLogger<EmailSender>().LogError(LoggingEvents.SEND_EMAIL, ex, "An error occurred whilst sending email");
+                }
+            });
         }
 
 

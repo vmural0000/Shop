@@ -18,9 +18,8 @@ const treeShakableModules = [
 const nonTreeShakableModules = [
     'es6-promise',
     'es6-shim',
-    'event-source-polyfill',
-    //'materialize-css/sass/materialize.scss',
-    //'materialize-css/dist/js/materialize.min.js',
+    'event-source-polyfill', 
+    'materialize-css/dist/css/materialize.css',
     'mdi/css/materialdesignicons.min.css',
     'jquery'
 ];

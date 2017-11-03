@@ -1,5 +1,4 @@
 ﻿import { Component, OnInit, ViewChild, TemplateRef, Input, Output } from '@angular/core';
-import { fadeInOut } from '../../../shared/helpers/animations';
 
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -15,7 +14,6 @@ import { Order, OrderStatus, OrderLine, OrderList } from '../order.model';
     selector: 'orders',
     templateUrl: './orders-list.component.html',
     styleUrls: ['./orders-list.component.scss'],
-    animations: [fadeInOut],
     providers: [OrdersService]
 })
 export class OrdersComponent {
@@ -30,8 +28,6 @@ export class OrdersComponent {
     constructor(private route: ActivatedRoute,
         private router: Router,
         private dataService: OrdersService,
-        private alertService: AlertService,
-        private translate: TranslationService,
         private accountService: AccountService) {
     }
 
@@ -78,8 +74,6 @@ export class OrdersComponent {
 
     onDataLoadFailed(error: any) {
         this.loadingIndicator = false;
-
-        console.log(error);
         //this.notificationService.create({
         //    title: this.translate.get('general.Error'),
         //    body: this.translate.get('general.ErrorLoad'),

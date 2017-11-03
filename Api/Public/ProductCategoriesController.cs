@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
 using BLL.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Api.Public
+namespace Api.Public
 {
     [Produces("application/json")]
     [Route("api/public/categories")]

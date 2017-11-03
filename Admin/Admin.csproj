@@ -33,6 +33,10 @@
     <PackageReference Update="Microsoft.NETCore.App" Version="2.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ClientApp\app\components\productcategories\productcategory-edit\" />
+  </ItemGroup>
+
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">

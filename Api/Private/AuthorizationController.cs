@@ -1,19 +1,18 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AspNet.Security.OpenIdConnect.Extensions;
-using Microsoft.AspNetCore.Identity;
+﻿using System.Linq;
 using System.Security.Claims;
-using AspNet.Security.OpenIdConnect.Server;
-using OpenIddict.Core;
+using System.Threading.Tasks;
+using AspNet.Security.OpenIdConnect.Extensions;
 using AspNet.Security.OpenIdConnect.Primitives;
+using AspNet.Security.OpenIdConnect.Server;
 using BLL.Core;
 using DAL.Models;
-using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using OpenIddict.Core;
 
-namespace Api.Controllers
+namespace Api.Private
 {
     public class AuthorizationController : Controller
     {

@@ -3,7 +3,7 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
-import { EndpointFactory } from '../../components/authentication/services/endpoint-factory.service';
+import { EndpointFactory } from '../../modules/authentication/services/endpoint-factory.service';
 import { ConfigurationService } from './configuration.service';
 
 

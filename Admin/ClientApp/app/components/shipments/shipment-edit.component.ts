@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {fadeInOut} from '../../shared/helpers/animations';
 import {Router, ActivatedRoute, Params} from '@angular/router';
 import {Subscription} from "rxjs/Rx";
 
@@ -13,7 +12,6 @@ import { Shipment } from './shipment.model';
 @Component({
     selector: 'shipment-edit',
     templateUrl: './shipment-edit.component.html',
-    animations: [fadeInOut],
     providers: [ShipmentsService]
 })
 export class ShipmentEditComponent {

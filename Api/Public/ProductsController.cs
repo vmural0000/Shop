@@ -1,12 +1,12 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BLL.DTO;
-using Microsoft.AspNetCore.Mvc;
 using BLL.Services.Public;
+using Microsoft.AspNetCore.Mvc;
 using Workers.Messaging;
 
-namespace Api.Api.Public
+namespace Api.Public
 {
     [Produces("application/json")]
     [Route("api/public/products")]
@@ -23,7 +23,6 @@ namespace Api.Api.Public
         [HttpGet]
         public IActionResult Get()
         {
-            EmailSender.SendEmail("vmural", "vmural@hotmail.com", "Test From Job", "Done");
             return Ok(_service.Get());
         }
 

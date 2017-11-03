@@ -1,6 +1,4 @@
 ﻿import { Component } from '@angular/core';
-import { fadeInOut } from '../../shared/helpers/animations';
-
 import { Router } from '@angular/router';
 
 import { AccountService } from "../../shared/services/account.service";
@@ -13,7 +11,6 @@ import { Shipment } from './shipment.model';
 @Component({
     selector: 'shipments',
     templateUrl: './shipments.component.html',
-    animations: [fadeInOut],
     providers: [ShipmentsService]
 })
 export class ShipmentsComponent {

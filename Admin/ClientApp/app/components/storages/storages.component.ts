@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {fadeInOut} from '../../shared/helpers/animations';
 
 import { AccountService } from "../../shared/services/account.service";
 import { StoragesService } from './storages.service';
@@ -12,7 +11,6 @@ import { Permission } from '../roles/permission.model';
 @Component({
     selector: 'storages',
     templateUrl: './storages.component.html',
-    animations: [fadeInOut],
     providers: [StoragesService]
 })
 export class StoragesComponent {

@@ -1,12 +1,11 @@
 ﻿import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { fadeInOut } from '../../../shared/helpers/animations';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { AppTitleService } from '../../../shared/services/app-title.service';
 import { AccountService } from "../../../shared/services/account.service";
 
 import { OrdersService } from '../orders.service';
-import { ProductsService } from '../../products/services/products.service';
+import { ProductsService } from '../../../modules/products/services/products.service';
 import { Order, OrderStatus, OrderLine } from '../order.model';
 import { TranslationService } from "../../../shared/services/translation.service";
 import { Permission } from '../../roles/permission.model';
@@ -17,7 +16,6 @@ import { AlertService } from '../../../shared/services/alert.service';
     selector: 'order-edit',
     templateUrl: './order-edit.component.html',
     styleUrls: ['./order-edit.component.scss'],
-    animations: [fadeInOut],
     providers: [OrdersService, ProductsService]
 })
 export class OrderEditComponent implements OnInit, OnDestroy {

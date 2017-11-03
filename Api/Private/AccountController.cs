@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 using BLL.Core;
 using BLL.DTO;
 using BLL.Helpers;
 using BLL.Policies;
-using DAL.Models;
 using DAL.Core.Interfaces;
+using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Api.Controllers
+namespace Api.Private
 {
     [Authorize]
     [Route("api/[controller]")]

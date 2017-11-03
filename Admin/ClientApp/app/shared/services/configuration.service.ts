@@ -1,7 +1,7 @@
 ﻿import { Injectable, Inject } from '@angular/core';
 
 import { TranslationService } from './translation.service';
-import { LocalStoreManager } from '../../components/authentication/services/local-store-manager.service';
+import { LocalStoreManager } from '../../modules/authentication/services/local-store-manager.service';
 import { DBkeys } from '../helpers/db-Keys';
 import { Utilities } from '../helpers/utilities';
 

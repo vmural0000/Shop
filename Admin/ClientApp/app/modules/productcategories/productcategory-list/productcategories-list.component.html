@@ -1,0 +1,14 @@
+﻿<div class="content-view">
+    <div class="card">
+        <div class="card-block">
+            <div class="dataTables_wrapper">
+                <button *ngIf="canViewAllProducts" type="button" class="ui-button-secondary" (click)="loadData()">{{'general.Refresh' | translate}}</button>
+                <button *ngIf="canViewAllProducts" type="button" class="ui-button-success" routerLink="create">{{'customers.list.create' | translate}}</button>
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div>

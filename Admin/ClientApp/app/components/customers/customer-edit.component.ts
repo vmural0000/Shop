@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { fadeInOut } from '../../shared/helpers/animations';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subscription } from "rxjs/Rx";
 
@@ -15,7 +14,6 @@ import { OrderStatus } from '../orders/order.model';
 @Component({
     selector: 'customer-edit',
     templateUrl: './customer-edit.component.html',
-    animations: [fadeInOut],
     providers: [CounterpartiesService]
 })
 export class CustomerEditComponent {

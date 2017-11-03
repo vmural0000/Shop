@@ -9,7 +9,7 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 
 import { AccountEndpoint } from './account-endpoint.service';
-import { AuthService } from '../../components/authentication/services/auth.service';
+import { AuthService } from '../../modules/authentication/services/auth.service';
 import { Role } from '../../components/roles/role.model';
 import { User } from '../../components/users/user.model';
 import { UserEdit } from '../../components/users/user-edit.model';

@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using BLL.Services;
 using BLL.Helpers;
+using BLL.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace Api.Api.Public
+namespace Api.Public
 {
     //[Produces("application/json")]
     [Route("api/public/orders")]
