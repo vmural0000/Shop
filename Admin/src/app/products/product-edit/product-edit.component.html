@@ -1,0 +1,260 @@
+﻿<div class="row">
+
+  <div class="loader08" *ngIf="loadingIndicator"></div>
+
+  <div class="col-sm-12" *ngIf="loaded">
+    <div class="card">
+      <div class="card-block">
+        <button *ngIf="!_create && canUpdateProducts" [disabled]="!editProductForm.valid" (click)="update()"
+                type="button" class="btn btn-primary btn-icon mr-1 mb-1">
+          <i class="icon icon-basic-refresh"></i>
+          <span>{{'general.Update' | translate}}</span>
+        </button>
+        <button *ngIf="_create && canCreateProducts" [disabled]="!editProductForm.valid" (click)="create()"
+                type="button" class="btn btn-success btn-icon mr-1 mb-1">
+          <i class="icon icon-basic-refresh"></i>
+          <span>{{'general.Add' | translate}}</span>
+        </button>
+        <button *ngIf="!_create && canDeleteProducts" (click)="delete(product)" type="button"
+                class="btn btn-danger btn-icon mr-1 mb-1">
+          <i class="icon icon-basic-refresh"></i>
+          <span>{{'general.Delete' | translate}}</span>
+        </button>
+      </div>
+    </div>
+
+
+    <form #editProductForm="ngForm">
+      <div class="row">
+        <div class="col-sm-9">
+
+          <div class="card">
+            <div class="card-block">
+              <div class="form-group col-sm-12">
+                <label for="name">{{'products.management.name' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="product.name" name="name" id="name"
+                       aria-describedby="nameHelp" required pattern=".{3,100}">
+                <small id="nameHelp" class="form-text text-muted">We'll never share your email with</small>
+              </div>
+              <!--<mz-select-container class="col s9">-->
+              <!--<select mz-select id="basic-select" [(ngModel)]="product.productCategoryId"-->
+              <!--name="productCategoryId" [disabled]="!_create"-->
+              <!--[label]="'products.management.productCategoryId' | translate">-->
+              <!--<option *ngFor="let category of categories" [value]="category.id">-->
+              <!--{{ category.name }}-->
+              <!--</option>-->
+              <!--</select>-->
+              <!--</mz-select-container>-->
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="price">{{'products.management.price' | translate}}</label>
+                    <input type="number" min="0" class="form-control" [(ngModel)]="product.price" name="price"
+                           id="price"
+                           aria-describedby="priceHelp">
+                    <small id="priceHelp" class="form-text text-muted">We'll never share your email with</small>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="brand">{{'products.management.barCode' | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="product.barCode" name="barCode" id="barCode"
+                           aria-describedby="barCodeHelp" pattern=".{0,13}">
+                    <small id="barCodeHelp" class="form-text text-muted">We'll never share your email with</small>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="brand">{{'products.management.brand' | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="product.brand" name="brand" id="brand"
+                           aria-describedby="brandHelp" required pattern=".{3,50}">
+                    <small id="brandHelp" class="form-text text-muted">We'll never share your email with</small>
+                  </div>
+                </div>
+
+                <div class="col-sm-6">
+                  <div class="form-group">
+                    <label for="brand">{{'products.management.manufactures' | translate}}</label>
+                    <input type="text" class="form-control" [(ngModel)]="product.manufactures" name="manufactures"
+                           id="manufactures" aria-describedby="manufacturesHelp">
+                    <small id="manufacturesHelp" class="form-text text-muted">We'll never share your email w</small>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="width">{{'products.management.width' | translate}}</label>
+                    <input type="number" step="0.01" class="form-control" [(ngModel)]="product.width" name="width"
+                           id="width">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="brand">{{'products.management.height' | translate}}</label>
+                    <input type="number" step="0.01" class="form-control" [(ngModel)]="product.height" name="height"
+                           id="height">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="brand">{{'products.management.length' | translate}}</label>
+                    <input type="number" step="0.01" class="form-control" [(ngModel)]="product.length" name="length"
+                           id="length">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <label for="brand">{{'products.management.weight' | translate}}</label>
+                    <input type="number" step="0.01" class="form-control" [(ngModel)]="product.weight" name="weight"
+                           id="weight">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-block">
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <label for="metaTitle">{{'products.management.metaTitle' | translate}}</label>
+                  <input type="text" class="form-control" [(ngModel)]="product.metaTitle" name="metaTitle"
+                         id="metaTitle" aria-describedby="metaTitleHelp" required pattern=".{20,70}">
+                  <small id="metaTitleHelp" class="form-text text-muted">We'll never share your email with</small>
+                </div>
+
+                <div class="form-group col-sm-12">
+                  <label for="metaDescription">{{'products.management.metaDescription' | translate}}</label>
+                  <input type="text" class="form-control" [(ngModel)]="product.metaDescription" name="metaDescription"
+                         id="metaDescription" aria-describedby="metaDescriptionHelp" required pattern=".{20,160}">
+                  <small id="metaDescriptionHelp" class="form-text text-muted">We'll never share your with</small>
+                </div>
+
+                <div class="form-group col-sm-12">
+                  <label for="metaKeywords">{{'products.management.metaKeywords' | translate}}</label>
+                  <input type="text" class="form-control" [(ngModel)]="product.metaKeywords" name="metaKeywords"
+                         id="metaKeywords"
+                         aria-describedby="metaKeywordsHelp" required
+                         pattern=".{20,100}">
+                  <small id="metaKeywordsHelp" class="form-text text-muted">We'll never share your email with</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-block">
+              <div class="row">
+                <div class="form-group col-sm-12">
+                  <label for="shortDescription">{{'products.management.shortDescription' | translate}}</label>
+                  <input type="text" class="form-control" [(ngModel)]="product.shortDescription"
+                         name="shortDescription" id="shortDescription" aria-describedby="shortDescriptionHelp" required
+                         pattern=".{10,70}">
+                  <small id="shortDescriptionHelp" class="form-text text-muted">We'll never share your</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12">
+                  <!--<ckeditor [(ngModel)]="product.description"-->
+                  <!--name="description" #description="ngModel"-->
+                  <!--[readonly]="false"-->
+                  <!--(change)="onChange($event)"-->
+                  <!--(focus)="onFocus($event)"-->
+                  <!--(blur)="onBlur($event)"-->
+                  <!--debounce="500">-->
+                  <!--</ckeditor>-->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--<img src="/ProductImages/{{product.id}}/{{product.image}}" style="width: 300px;"/>-->
+          <!--<image-upload url="http://localhost:55126/api/products/image/{{product.id}}"-->
+          <!--[extensions]="['jpeg','png']" (removed)="onRemoved($event)"-->
+          <!--[headers]="myHeaders"></image-upload>-->
+          <div class="row">
+            <div *ngFor="let image of product.images">
+              <!--<mz-card class="col s3 card_img">-->
+              <!--<mz-card-content>-->
+              <!--<img src="/ProductImages/{{product.id}}/{{image}}">-->
+              <!--</mz-card-content>-->
+              <!--<mz-card-action>-->
+              <!--<span><a href="javascript:void(0)" (click)="setGeneral(image)">Головна</a></span>-->
+              <!--<span><a href="javascript:void(0)" (click)="imageRemove(image)">Видалити</a></span>-->
+              <!--</mz-card-action>-->
+              <!--</mz-card>-->
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-sm-3">
+          <div class="card col-sm-12">
+            <div class="card-block">
+              <div class="row">
+
+                <div class="col-sm-12">
+                  {{'products.management.unitsInStock' | translate}}: {{product.unitsInStock}}
+                  шт.<br/>
+                  {{'products.management.article' | translate}}: {{product.article}}
+                  <hr/>
+
+                  <label class="custom-control custom-checkbox col-sm-12">
+                    <input type="checkbox" class="custom-control-input" [(ngModel)]="product.published" name="published"
+                           id="published">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{'products.management.published' | translate}}</span>
+                  </label>
+
+                  <label class="custom-control custom-checkbox col-sm-12">
+                    <input type="checkbox" class="custom-control-input" [(ngModel)]="product.discountAllowed"
+                           name="discountAllowed" id="discountAllowed">
+                    <span class="custom-control-indicator"></span>
+                    <span
+                      class="custom-control-description">{{'products.management.discountAllowed' | translate}}</span>
+                  </label>
+
+                  <label class="custom-control custom-checkbox col-sm-12">
+                    <input type="checkbox" class="custom-control-input" [(ngModel)]="product.discount" name="discount"
+                           [disabled]="!product.discountAllowed" id="discount">
+                    <span class="custom-control-indicator"></span>
+                    <span class="custom-control-description">{{'products.management.discount' | translate}}</span>
+                  </label>
+
+                  <div class="form-group row">
+                    <label for="discountToDateTime">{{'products.management.discountToDateTime' | translate}}</label>
+                    <input class="form-control" type="date" [(ngModel)]="product.discountToDateTime"
+                           name="discountToDateTime" id="discountToDateTime" [disabled]="!product.discount">
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="discountPrice">{{'products.management.discountPrice' | translate}}</label>
+                    <input type="number" min="0" max="99" class="form-control" [(ngModel)]="product.discountPrice"
+                           name="discountPrice" id="discountPrice" aria-describedby="discountPriceHelp"
+                           [disabled]="!product.discountAllowed">
+                    <small id="discountPriceHelp" class="form-text text-muted">We'll never share your</small>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="maxDiscountPercentage">{{'products.management.maxDiscountPercentage' |
+                      translate}}</label>
+                    <input type="number" min="0" max="99" class="form-control"
+                           [(ngModel)]="product.maxDiscountPercentage"
+                           name="maxDiscountPercentage" id="maxDiscountPercentage"
+                           aria-describedby="maxDiscountPercentageHelp" [disabled]="!product.discountAllowed">
+                    <small id="maxDiscountPercentageHelp" class="form-text text-muted">We'll never share your</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

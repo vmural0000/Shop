@@ -56,12 +56,8 @@ namespace BLL.Services
             return Mapper.Map<ProductCategoryDto>(model);
         }
 
-        public void Put(string id, ProductCategoryDto dto)
+        public void Put(string id, EditProductCategoryDto dto)
         {
-            if (id != dto.Id)
-            {
-                //return BadRequest();
-            }
             var productCategory = _context.ProductCategory.Get(id);
             Mapper.Map(dto, productCategory);
 

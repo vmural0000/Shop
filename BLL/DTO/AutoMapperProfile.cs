@@ -58,6 +58,8 @@ namespace BLL.DTO
             CreateMap<DAL.Models.ProductCategory, CreateProductCategoryDto>()
                           .ReverseMap();
 
+            CreateMap<DAL.Models.ProductCategory, EditProductCategoryDto>()
+                                    .ReverseMap();
 
             CreateMap<Order, OrderListDto>()
                 .ReverseMap();

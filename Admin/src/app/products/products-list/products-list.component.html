@@ -1,0 +1,49 @@
+﻿<div class="card" *ngIf="canReadProducts">
+  <div class="loader08" *ngIf="loadingIndicator"></div>
+
+  <div class="card-header">
+    <button *ngIf="canReadProducts" (click)="fetchData()" type="button" class="btn btn-seconday btn-icon loading-demo mr-1 mb-1">
+      <i class="fa fa-refresh"></i>
+      <span>refresh</span>
+    </button>
+
+    <button *ngIf="canCreateProducts" routerLink="create" type="button" class="btn btn-success btn-icon loading-demo mr-1 mb-1">
+      <i class="fa fa-plus"></i>
+      <span>add</span>
+    </button>
+
+    <button *ngIf="canCreateProducts" (click)="export()" type="button" class="btn btn-primary btn-icon loading-demo mr-1 mb-1">
+      <i class="fa fa-upload"></i>
+      <span>export</span>
+    </button>
+  </div>
+  <div class="card-block">
+    <div class="table-responsive">
+      <table class="table mb-0 table-sm">
+        <thead>
+          <tr>
+            <th>{{'products.list.name' | translate}}</th>
+            <th></th>
+            <th>{{'products.list.article' | translate}}</th>
+            <th>{{'products.list.price' | translate}}</th>
+            <th>{{'products.list.unitsInStock' | translate}}</th>
+            <th>{{'products.list.productCategoryName' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of rows">
+            <td><a href="javascript:;" (click)="select(product);"><strong> {{product.name}}</strong></a></td>
+            <td>
+              <i  *ngIf="!product.published" class="fa fa-low-vision"></i>
+              <i *ngIf="product.discount" class="fa fa-usd">attach_money</i>
+            </td>
+            <td>{{product.article}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.unitsInStock}}</td>
+            <td>{{product.productCategoryName}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

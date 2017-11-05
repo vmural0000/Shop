@@ -1,9 +1,0 @@
-<div>
-    <div *ngIf="loaded">
-            <ul>
-                <li *ngFor="let activity of activity">
-                    {{activity.userFullName}} ({{activity.userJobTitle}}) - {{ activity.type }}  :{{activity.timeStamp | date:'short' }}
-                </li>
-            </ul>
-    </div>
-</div>
