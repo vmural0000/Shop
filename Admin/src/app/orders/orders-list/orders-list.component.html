@@ -1,0 +1,43 @@
+﻿<div class="card" *ngIf="canReadOrders">
+  <div class="loader08" *ngIf="loadingIndicator"></div>
+
+  <div class="card-header">
+    <button *ngIf="canReadOrders" (click)="fetchData(page)" type="button"
+            class="btn btn-seconday btn-icon loading-demo mr-1 mb-1">
+      <i class="fa fa-refresh"></i><span>{{'Refresh' | translate}}</span>
+    </button>
+
+    <button *ngIf="canCreateOrders" routerLink="create" type="button"
+            class="btn btn-success btn-icon loading-demo mr-1 mb-1">
+      <i class="fa fa-plus"></i><span>{{'order.list.create' | translate}}</span>
+    </button>
+
+    <input #gb type="text" placeholder="{{'Search' | translate}}">
+
+  </div>
+
+  <div class="card-block">
+    <div class="table-responsive">
+      <table class="table mb-0 table-sm table-bordered table-striped">
+        <thead>
+        <tr>
+          <th>{{'order.list.orderNumber' | translate}}</th>
+          <th>{{'order.list.dateCreated' | translate}}</th>
+          <th>{{'order.list.status' | translate}}</th>
+          <th>{{'order.list.counterpartyName' | translate}}</th>
+          <th>{{'order.list.counterpartyPhoneNumber' | translate}}</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let item of rows">
+          <td><a (click)="edit(item.id)">{{item.orderNumber}}</a></td>
+          <td>{{item.dateCreated | date:'short'}}</td>
+          <td>{{item.status}}</td>
+          <td>{{item.counterpartyName}}</td>
+          <td>{{item.counterpartyPhoneNumber}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

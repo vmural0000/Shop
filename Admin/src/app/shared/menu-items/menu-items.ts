@@ -22,7 +22,7 @@ export interface Menu {
 
 const MENUITEMS = [
   {
-    state: '/',
+    state: 'dashboard',
     name: 'HOME',
     type: 'link',
     icon: 'basic-accelerator'
@@ -36,6 +36,12 @@ const MENUITEMS = [
   {
     state: 'productcategories',
     name: 'PRODUCTSCATEGORIES',
+    type: 'link',
+    icon: 'software-indent-firstline'
+  },
+  {
+    state: 'orders',
+    name: 'ORDERS',
     type: 'link',
     icon: 'software-indent-firstline'
   }

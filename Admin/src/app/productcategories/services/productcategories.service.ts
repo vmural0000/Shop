@@ -20,14 +20,6 @@ export class ProductCategoriesService {
         return this.http.get<any[]> (this.productCategoriesListUrl);
     }
 
-    getParentList(): Observable<any[]> {
-        return this.http.get<any[]> (this.parentListUrl);
-    }
-
-    getProductCategory(id: string): Observable<ProductCategory> {
-        return this.http.get<ProductCategory> (`${this.productCategoriesUrl}/${id}`);
-    }
-
     updateProductCategory(productCategory: ProductCategory): Observable<void> {
         return this.http.put<void>(`${this.productCategoriesUrl}/${productCategory.id}`, JSON.stringify(productCategory), {
             headers: new HttpHeaders().set('Content-Type', 'application/json'),
@@ -35,7 +27,6 @@ export class ProductCategoriesService {
     }
 
     createProductCategory(productCategory: ProductCategory): Observable<void> {
-
         return this.http.post<void>(this.productCategoriesUrl, JSON.stringify(productCategory), {
             headers: new HttpHeaders().set('Content-Type', 'application/json'),
         });
@@ -44,5 +35,4 @@ export class ProductCategoriesService {
     deleteProductCategory(id: string): Observable<void> {
         return this.http.delete<void>(`${this.productCategoriesUrl}/${id}`);
     }
-
 }

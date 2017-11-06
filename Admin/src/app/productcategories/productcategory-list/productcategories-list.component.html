@@ -1,36 +1,33 @@
-﻿<div class="content-view">
-    <div class="card">
-        <div class="card-block">
-            <div class="dataTables_wrapper">
-                <button *ngIf="canViewAllProducts" type="button" class="ui-button-secondary" (click)="loadData()">
-                    {{'general.Refresh' | translate}}
-                </button>
-                <button *ngIf="canViewAllProducts" type="button" class="ui-button-success" routerLink="create">
-                    {{'customers.list.create' | translate}}
-                </button>
-
-                <table class="bordered striped">
-                    <thead>
-                        <tr>
-                            <th>{{'products.list.name' | translate}}</th>
-                            <th>{{'products.list.article' | translate}}</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let category of rows">
-                            <td><strong>{{category.name}}</strong></td>
-                            <td *ngIf="editing && editedCategory == category"><input [(ngModel)]="category.name" name="name" /></td>
-                            <td>{{category.sequenceId}}</td>
-                            <td>
-                                <a *ngIf="!editing && editedCategory != category" href="javascript:;" (click)="edit(category);">Edit</a>
-                                <a *ngIf="editing && editedCategory == category" href="javascript:;" (click)="save();">Save</a>
-                                <a href="javascript:;" (click)="delete(category);">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+﻿<div class="card" *ngIf="canReadProducts">
+  <div class="card-header">
+    <button *ngIf="canReadProducts" (click)="loadData()" type="button" class="btn btn-seconday btn-icon">
+      <i class="fa fa-refresh"></i><span>{{'Refresh' | translate}}</span>
+    </button>
+  </div>
+  <div class="card-block">
+    <div class="col-md-6">
+      <div class="row">
+        <input class="form-control" placeholder="{{'Search' | translate}}" #filter (keyup)="filterNodes(filter.value, tree)">
+      </div>
+      <tree-root #tree [nodes]="rows">
+        <ng-template #treeNodeTemplate let-node>
+          <span title="{{node.data.sequenceId}}">{{ node.data.name }} ({{ node.data.sequenceId }})</span>
+          <div _ngcontent-c11="" class="btn-group">
+            <button *ngIf="canCreateProducts && node.data.sequenceId.length <= 4" (click)="addNode(node.data)"
+                    class="btn  btn-icon-icon btn-sm btn-success">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="canCreateProducts" (click)="editNode(node.data)"
+                    class="btn  btn-icon-icon btn-sm btn-primary">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+            <button *ngIf="canDeleteProducts" (click)="deleteNode(node.data)"
+                    class="btn  btn-icon-icon btn-sm btn-danger">
+              <i class="fa fa-remove" aria-hidden="true"></i>
+            </button>
+          </div>
+        </ng-template>
+      </tree-root>
     </div>
+  </div>
 </div>

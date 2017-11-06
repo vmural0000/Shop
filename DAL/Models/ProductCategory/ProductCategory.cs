@@ -14,7 +14,7 @@ namespace DAL.Models
         public string Name { get; set; }
         public string ParentId { get; set; }
 
-        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
+        public virtual ICollection<ProductCategory> Children { get; set; }
         public virtual ProductCategory Parent { get; set; }
     }
 }

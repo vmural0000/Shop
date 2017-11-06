@@ -8,7 +8,6 @@ namespace BLL.Services
     {
         List<ProductCategoryDto> Get();
         IEnumerable<ProductCategoryDto> GetList();
-        IEnumerable<ProductCategoryDto> GetParent();
         ProductCategoryDto Get(string id);
         void Put(string id, EditProductCategoryDto dto);
         ProductCategoryDto Post(CreateProductCategoryDto dto);

@@ -6,27 +6,27 @@ import {ProductCategoriesService} from './services/productcategories.service';
 
 import {ProductCategoriesComponent} from './productcategories.component';
 import {ProductCategoriesListComponent} from './productcategory-list/productcategories-list.component';
-import {ProductCategoriesEditComponent} from './productcategory-edit/productcategories-edit.component';
 
 import {ProductCategoriesRoutingModule} from './productcategories-routing.module';
 
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {TranslateModule} from '@ngx-translate/core';
+import {TreeModule} from 'angular-tree-component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule,
-        ProductCategoriesRoutingModule,
-        NgxDatatableModule,
-        TranslateModule
-    ],
-    declarations: [
-        ProductCategoriesComponent,
-        ProductCategoriesListComponent,
-        ProductCategoriesEditComponent,
-    ],
-    providers: [ProductCategoriesService]
+  imports: [
+    CommonModule,
+    FormsModule,
+    ProductCategoriesRoutingModule,
+    NgxDatatableModule,
+    TreeModule,
+    TranslateModule
+  ],
+  declarations: [
+    ProductCategoriesComponent,
+    ProductCategoriesListComponent,
+  ],
+  providers: [ProductCategoriesService]
 })
 export class ProductCategoriesModule {
 }

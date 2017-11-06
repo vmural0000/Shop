@@ -7,10 +7,10 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   constructor(translate: TranslateService) {
-    translate.addLangs(['en', 'fr']);
-    translate.setDefaultLang('en');
+    translate.addLangs(['en', 'ru','uk']);
+    translate.setDefaultLang('uk');
 
     const browserLang: string = translate.getBrowserLang();
-    translate.use(browserLang.match(/en|fr/) ? browserLang : 'en');
+    translate.use(browserLang.match(/en|ru|uk/) ? browserLang : 'uk');
   }
 }

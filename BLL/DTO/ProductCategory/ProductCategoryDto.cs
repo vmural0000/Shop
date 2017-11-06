@@ -9,6 +9,6 @@ namespace BLL.DTO
         public string SequenceId { get; set; }
         public string Name { get; set; }
         public string ParentId { get; set; }
-        public IEnumerable<ProductCategoryDto> ProductCategories { get; set; }
+        public IEnumerable<ProductCategoryDto> Children { get; set; }
     }
 }

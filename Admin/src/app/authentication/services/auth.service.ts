@@ -1,6 +1,6 @@
 ﻿import {Injectable, Inject} from '@angular/core';
 import {Router} from '@angular/router';
-import {Http, Headers, Response, URLSearchParams} from '@angular/http';
+import {Response, URLSearchParams} from '@angular/http';
 import {Observable, Subscription} from 'rxjs/Rx';
 import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/map';
@@ -11,6 +11,7 @@ import {JwtHelper} from './jwt-helper';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {User} from './user.model';
 import {PermissionValues} from './permission.model';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 
 @Injectable()
 export class AuthService {
@@ -39,7 +40,7 @@ export class AuthService {
   constructor(private router: Router,
               private configurations: ConfigurationService,
               @Inject('BASE_URL') private baseUrl: string,
-              private http: Http,
+              private http: HttpClient,
               private localStorage: LocalStoreManager) {
     this.initializeLoginStatus();
   }
@@ -85,22 +86,22 @@ export class AuthService {
 
   refreshLogin() {
     return this.getRefreshLoginEndpoint()
-      .map((response: Response) => this.processLoginResponse(response, this.rememberMe));
+      .map((response: Response) => this.processLoginResponse(response));
   }
 
-  login(userName: string, password: string, rememberMe?: boolean) {
+  login(userName: string, password: string) {
     if (this.isLoggedIn) {
       this.logout();
     }
 
     return this.getLoginEndpoint(userName, password)
-      .map((response: Response) => this.processLoginResponse(response, rememberMe));
+      .map((response: Response) => this.processLoginResponse(response));
   }
 
 
-  private processLoginResponse(response: Response, rememberMe: boolean) {
+  private processLoginResponse(response: any) {
 
-    const responseToken = response.json();
+    const responseToken = response;
     const accessToken = responseToken.access_token;
 
     if (accessToken == null) {
@@ -137,7 +138,7 @@ export class AuthService {
       Array.isArray(decodedIdToken.role) ? decodedIdToken.role : [decodedIdToken.role]);
     user.isEnabled = true;
 
-    this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry, rememberMe);
+    this.saveUserDetails(user, permissions, accessToken, idToken, refreshToken, accessTokenExpiry);
     this.loginStatus.next(true);
     this.reevaluateLoginStatus();
     return user;
@@ -146,24 +147,14 @@ export class AuthService {
 
   private saveUserDetails(user: User, permissions: PermissionValues[],
                           accessToken: string, idToken: string, refreshToken: string,
-                          expiresIn: Date, rememberMe: boolean) {
-    if (rememberMe) {
+                          expiresIn: Date) {
+
       localStorage.setItem(DBkeys.ACCESS_TOKEN, accessToken);
       this.localStorage.savePermanentData(idToken, DBkeys.ID_TOKEN);
       this.localStorage.savePermanentData(refreshToken, DBkeys.REFRESH_TOKEN);
       this.localStorage.savePermanentData(expiresIn, DBkeys.TOKEN_EXPIRES_IN);
       this.localStorage.savePermanentData(permissions, DBkeys.USER_PERMISSIONS);
       this.localStorage.savePermanentData(user, DBkeys.CURRENT_USER);
-    } else {
-      this.localStorage.saveSyncedSessionData(accessToken, DBkeys.ACCESS_TOKEN);
-      this.localStorage.saveSyncedSessionData(idToken, DBkeys.ID_TOKEN);
-      this.localStorage.saveSyncedSessionData(refreshToken, DBkeys.REFRESH_TOKEN);
-      this.localStorage.saveSyncedSessionData(expiresIn, DBkeys.TOKEN_EXPIRES_IN);
-      this.localStorage.saveSyncedSessionData(permissions, DBkeys.USER_PERMISSIONS);
-      this.localStorage.saveSyncedSessionData(user, DBkeys.CURRENT_USER);
-    }
-
-    this.localStorage.savePermanentData(rememberMe, DBkeys.REMEMBER_ME);
   }
 
   logout(): void {
@@ -191,7 +182,7 @@ export class AuthService {
 
 
   getLoginEndpoint(userName: string, password: string): Observable<Response> {
-    const header = new Headers();
+    const header = new HttpHeaders();
     header.append('Content-Type', 'application/x-www-form-urlencoded');
 
     const searchParams = new URLSearchParams();
@@ -203,13 +194,14 @@ export class AuthService {
 
     const requestBody = searchParams.toString();
 
-    return this.http.post(this.tokenUrl, requestBody, {headers: header});
+    return this.http.post(this.tokenUrl, requestBody, {
+      headers: new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded'),
+    });
   }
 
 
   getRefreshLoginEndpoint(): Observable<Response> {
-
-    const header = new Headers();
+    const header = new HttpHeaders();
     header.append('Content-Type', 'application/x-www-form-urlencoded');
 
     const searchParams = new URLSearchParams();
@@ -219,14 +211,7 @@ export class AuthService {
 
     const requestBody = searchParams.toString();
 
-    return this.http.post(this.tokenUrl, requestBody, {headers: header})
-      .map((response: Response) => {
-        return response;
-      })
-      .catch(error => {
-        console.error(error);
-        return Observable.throw(error || 'server error');
-      });
+    return this.http.post(this.tokenUrl, requestBody, {headers: header});
   }
 
 
@@ -268,9 +253,5 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     return this.currentUser != null;
-  }
-
-  get rememberMe(): boolean {
-    return this.localStorage.getDataObject<boolean>(DBkeys.REMEMBER_ME);
   }
 }

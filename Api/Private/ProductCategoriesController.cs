@@ -23,9 +23,6 @@ namespace Api.Private
         [HttpGet("list")]
         public IActionResult GetList() => Ok(_context.GetList());
 
-        [HttpGet("parent")]
-        public IActionResult GetParent() => Ok(_context.GetParent());
-
         [HttpGet("{id}")]
         public IActionResult Get([FromRoute] string id)
         {
@@ -38,7 +35,7 @@ namespace Api.Private
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put([FromRoute] string id, [FromBody] ProductCategoryDto productCategory)
+        public IActionResult Put([FromRoute] string id, [FromBody] EditProductCategoryDto productCategory)
         {
             if (!ModelState.IsValid)
             {

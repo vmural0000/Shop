@@ -34,8 +34,6 @@ export class SigninComponent implements OnInit, OnDestroy {
       password: [null, Validators.compose([Validators.required])]
     });
 
-    this.userLogin.rememberMe = this.authService.rememberMe;
-
     if (this.getShouldRedirect()) {
       this.authService.redirectLoginUser();
     } else {
@@ -61,7 +59,7 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   onSubmit({value, valid}) {
     this.isLoading = true;
-    this.authService.login(value.uname, value.password, true)
+    this.authService.login(value.uname, value.password)
       .subscribe(
         user => {
           this.isLoading = false;
@@ -75,7 +73,7 @@ export class SigninComponent implements OnInit, OnDestroy {
 
   login() {
     this.isLoading = true;
-    this.authService.login(this.form.value('uname'), this.form.value('password'), true)
+    this.authService.login(this.form.value('uname'), this.form.value('password'))
       .subscribe(
         user => {
           this.isLoading = false;

@@ -1,0 +1,221 @@
+﻿<div class="loader08" *ngIf="loadingIndicator"></div>
+<div class="card" *ngIf="loaded">
+  <div class="card-block">
+    <button type="button" class="btn btn-primary btn-icon" *ngIf="readonly" (click)="accept(order)">
+      <i class="material-icons">lock open</i><span>{{'general.Accept' | translate}}</span>
+    </button>
+
+    <button type="button" class="btn btn-primary btn-icon" *ngIf="!create && !readonly" (click)="update(editForm)">
+      <i class="material-icons">file_upload</i><span>{{'general.Update' | translate}}</span>
+    </button>
+
+    <button type="button" class="btn btn-success btn-icon" *ngIf="create && !readonly" (click)="add(editForm)"
+            [disabled]="!editForm.form.valid">
+      <i class="material-icons">add</i><span>{{'general.Add' | translate}}</span>
+    </button>
+
+    <button type="button" class="btn btn-danger btn-icon" *ngIf="!create && !readonly" (click)="delete(order)"
+            [disabled]="!editForm.form.valid">
+      <i class="material-icons">delete</i><span>{{'general.Delete' | translate}}</span>
+    </button>
+
+    <button type="button" class="btn btn-secondary btn-icon" *ngIf="!create && !readonly" (click)="print()">
+      <i class="material-icons">print</i><span>{{'general.Print' | translate}}</span>
+    </button>
+  </div>
+</div>
+
+<form #editForm="ngForm">
+  <div class="row">
+    <div class="col-lg-8">
+      <div class="card">
+        <div class="card-block">
+          <div class="col-lg-12">
+            <!--<div class="col-lg-6">-->
+            <!--<mat-form-field class="full-width">-->
+            <!--<mat-select [(ngModel)]="order.status" name="status" placeholder="{{'order.management.status' | translate}}">-->
+            <!--<mat-option *ngFor="let status of statuses | keys" [value]="status.key">-->
+            <!--{{ status.value }}-->
+            <!--</mat-option>-->
+            <!--</mat-select>-->
+            <!--</mat-form-field>-->
+            <!--</div>-->
+
+            <!--<div class="col-lg-6">-->
+            <!--<mat-form-field>-->
+            <!--<input matInput [min]="minDate" [(ngModel)]="order.deliveryDate" name="deliveryDate" [matDatepicker]="deliveryDate" placeholder="{{'order.management.deliveryDate' | translate}}">-->
+            <!--<mat-datepicker-toggle matSuffix [for]="deliveryDate"></mat-datepicker-toggle>-->
+            <!--<mat-datepicker #deliveryDate></mat-datepicker>-->
+            <!--</mat-form-field>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="form-group">
+              <label for="comments">{{'order.management.comments' | translate}}</label>
+              <textarea class="form-control" #comments maxlength="200" [(ngModel)]="order.comments" name="comments"
+                        id="comments"
+                        aria-describedby="commentsHelp"></textarea>
+              <small id="commentsHelp" class="form-text text-muted">{{comments.value.length}} / 200</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-block">
+          <div class="col-lg-6">
+            <input type="text" [(ngModel)]="newitem" name="newitem" placeholder="Введіть артикул товару..."/>
+            <button type="button" class="ui-button-success" label="Додати" (click)="addItem()"></button>
+          </div>
+          <table class="table">
+            <thead>
+            <tr>
+              <th>
+                <i class="fa fa-user"></i> {{'order.management.productName' | translate}}
+              </th>
+              <th>
+                <i class="fa fa-linkedin-square"></i> {{'order.management.productQuantity' | translate }}
+              </th>
+              <th>
+                <i class="fa fa-linkedin-square"></i> {{'order.management.productUnitPrice' | translate }}
+              </th>
+              <th>
+                <i class="fa fa-linkedin-square"></i> {{'order.management.productAmount' | translate}}
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let detail of order.orderLines">
+              <td>
+                <a [routerLink]="['/products', detail.productArticle]">{{detail.productName}}</a>
+              </td>
+              <td>
+                <input type="number" [(ngModel)]="detail.quantity" name="quantity" (change)="recalculateOrderSum();"/>
+              </td>
+              <td>{{detail.unitPrice}} грн.</td>
+              <td>{{detail.amount}} грн.</td>
+              <td>
+                <button type="button" class="btn btn-danger" (click)="deleteItem(detail)">
+                  {{'order.management.removeItem' | translate }}
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><span class="totalPrice">{{'order.management.totalPrice' | translate}} </span></td>
+              <td></td>
+              <td></td>
+              <td><span class="totalPrice">{{order.totalPrice}} грн. </span></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-block">
+          <table class="ui-g-12">
+            <thead>
+            <tr>
+              <th class="ui-g-4">{{'order.list.orderNumber' | translate}}</th>
+              <th class="ui-g-4">{{'order.list.dateCreated' | translate}}</th>
+              <th class="ui-g-4">{{'order.list.status' | translate}}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let order of order.orders">
+              <td class="ui-g-4"><a [routerLink]="['/orders', order.id]">{{order.orderNumber}}</a></td>
+              <td class="ui-g-4">{{order.dateCreated | date:'short' }}</td>
+              <td class="ui-g-4">{{order.status}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-lg-4">
+      <div class="card">
+        <div class="card-block">
+          <div class="col-lg-12">
+
+            <div class="form-group col-lg-12">
+              <label for="counterpartyName">{{'order.counterpartyName' | translate}}</label>
+              <input type="text" class="form-control" #counterpartyName maxlength="50"  [(ngModel)]="order.counterpartyName" name="counterpartyName" id="counterpartyName"
+                     aria-describedby="counterpartyPhoneNumberHelp" required pattern=".{3,50}">
+              <small id="counterpartyNameHelp" class="form-text text-muted">{{counterpartyName.value.length}} / 50</small>
+            </div>
+
+            <div class="form-group col-lg-12">
+              <label for="counterpartyPhoneNumber">{{'order.counterpartyPhoneNumber' | translate}}</label>
+              <input type="text" class="form-control" #counterpartyPhoneNumber maxlength="19"  [(ngModel)]="order.counterpartyPhoneNumber" name="counterpartyPhoneNumber" id="counterpartyPhoneNumber"
+                     aria-describedby="counterpartyPhoneNumberHelp" required pattern=".{10,19}">
+              <small id="counterpartyPhoneNumberHelp" class="form-text text-muted">{{counterpartyPhoneNumber.value.length}} / 19</small>
+            </div>
+
+
+            <!--<div class="ui-g-12">-->
+            <!--<div class="ui-inputgroup">-->
+            <!--<span><i class="fa fa-phone"></i></span>-->
+            <!--<label>{{'order.management.counterpartyPhoneNumber' | translate}}</label>-->
+            <!--<p-inputMask mask="+38 (099) 999-99-99" [(ngModel)]="order.counterpartyPhoneNumber" name="counterpartyPhoneNumber" required-->
+            <!--pattern=".{10,19}"></p-inputMask>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="ui-g-12">-->
+            <!--<div class="ui-inputgroup">-->
+            <!--<span><i class="fa fa-map"></i></span>-->
+            <!--<label>{{'order.management.counterpartyCity' | translate}}</label>-->
+            <!--<input type="text" [(ngModel)]="order.counterpartyCity" name="counterpartyCity" disabled />-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--<div class="ui-g-12">-->
+            <!--<div class="ui-inputgroup">-->
+            <!--<span><i class="fa fa-globe"></i></span>-->
+            <!--<label>{{'order.management.counterpartyAddress' | translate}}</label>-->
+            <!--<input type="text" [(ngModel)]="order.counterpartyAddress" name="counterpartyAddress" disabled />-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <!--<div class="newpost">-->
+            <!--<p-autoComplete placeholder="Пошук населеного пункту" [suggestions]="cities" field="description" [size]="50" [minLength]="3"-->
+            <!--(completeMethod)="searchCity($event)" (onSelect)="selectCity($event)">-->
+            <!--<ng-template let-brand pTemplate="item">-->
+            <!--<div class="ui-helper-clearfix" [ngClass]="{'text-red': brand.warehouse === '0'}" style="border-bottom: 1px solid #D5D5D5;">-->
+            <!--<div>-->
+            <!--{{brand.settlementTypeDescription}} {{brand.description}}<br/>-->
+            <!--<span style="font-size: 10px;">{{brand.areaDescription}} {{brand.regionsDescription}}</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</ng-template>-->
+            <!--</p-autoComplete>-->
+            <!--<p-dropdown [options]="warehouses" [(ngModel)]="order.customerAddress" name="customerAddress" [style]="{'width':'400px'}"-->
+            <!--placeholder="Select a Brand">-->
+            <!--<ng-template let-car pTemplate="item">-->
+            <!--{{car.description}}-->
+            <!--</ng-template>-->
+            <!--</p-dropdown>-->
+            <!--<p-autoComplete placeholder="Пошук відділення" [suggestions]="filteredBrands" field="description" (completeMethod)="searchWarehouses($event)" (onSelect)="selectWarehouse($event)" [style]="{'width':'400px'}"></p-autoComplete>-->
+          </div>
+        </div>
+      </div>
+
+      <div class="card" *ngIf="!create">
+        <div class="card-block">
+          <ul>
+            <li>{{'order.management.id' | translate}} <strong>{{order.id}}</strong></li>
+            <li>{{'order.management.orderNumber' | translate}} <strong>{{order.orderNumber}}</strong></li>
+            <li>{{'order.management.managerFullName' | translate}} <strong>{{order.managerFullName}}</strong></li>
+            <li>{{'order.management.dateCreated' | translate}} <strong>{{order.dateCreated | date:'short'}}</strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

@@ -3,5 +3,5 @@
     sequenceId: number;
     name: string;
     parentId: string;
-    productCategories: ProductCategory[];
+    children: ProductCategory[];
 }

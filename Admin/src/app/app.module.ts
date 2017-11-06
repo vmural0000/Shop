@@ -18,9 +18,11 @@ import {SharedModule} from './shared/shared.module';
 
 import {ConfigurationService} from './shared/services/configuration.service';
 import {AlertService} from './shared/services/alert.service';
-import {JWTInterceptor} from './shared/services/jwtinterceptor';
-import {ErrorInterceptor} from './shared/services/errorinterceptor';
+import {JWTInterceptor} from './authentication/services/jwtinterceptor';
+import {ErrorInterceptor} from './authentication/services/errorinterceptor';
 import {LocalStoreManager} from './authentication/services/local-store-manager.service';
+import {AuthGuard} from "./authentication/services/auth-guard.service";
+import {AuthService} from "./authentication/services/auth.service";
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -53,11 +55,13 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     {provide: LOCALE_ID, useValue: 'uk-UA'},
     {provide: 'BASE_URL', useFactory: getBaseUrl},
+    AuthGuard,
+    AuthService,
     AlertService,
     ConfigurationService,
     LocalStoreManager,
     {provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true},
-    // {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
@@ -65,6 +69,5 @@ export class AppModule {
 }
 
 export function getBaseUrl() {
-  // return 'http://localhost:55001/';
   return 'http://api.forfun.dp.ua/';
 }

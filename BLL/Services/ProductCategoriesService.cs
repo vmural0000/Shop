@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -42,13 +40,6 @@ namespace BLL.Services
             var tree = Tree();
             return Mapper.Map<IEnumerable<ProductCategoryDto>>(tree);
         }
-
-        public IEnumerable<ProductCategoryDto> GetParent()
-        {
-            var model = _context.ProductCategory.GetAllProductCategories().Where(w => w.SequenceId.Length <= 4).OrderBy(o => o.SequenceId);
-            return Mapper.Map<IEnumerable<ProductCategoryDto>>(model);
-        }
-
 
         public ProductCategoryDto Get(string id)
         {
@@ -145,14 +136,14 @@ namespace BLL.Services
         private List<ProductCategoryDto> Tree()
         {
             var colTreeNodes = new List<ProductCategoryDto>();
-            foreach (var parent in _context.ProductCategory.GetAll().Where(w => w.ParentId == null).OrderBy(o => o.Name))
+            foreach (var parent in _context.ProductCategory.GetAll().Where(w => w.ParentId == null).OrderBy(o => o.SequenceId))
             {
                 colTreeNodes.Add(new ProductCategoryDto
                 {
                     Id = parent.Id,
                     Name = parent.Name,
                     SequenceId = parent.SequenceId,
-                    ProductCategories = AddChildren(parent.ProductCategories)
+                    Children = AddChildren(parent.Children)
                 });
             }
             return colTreeNodes;
@@ -162,7 +153,7 @@ namespace BLL.Services
         {
             var colTreeNodes = new List<ProductCategoryDto>();
             if (child != null)
-                foreach (var children in child.OrderBy(o => o.Name))
+                foreach (var children in child.OrderBy(o => o.SequenceId))
                 {
                     colTreeNodes.Add(new ProductCategoryDto
                     {
@@ -170,9 +161,9 @@ namespace BLL.Services
                         ParentId = children.ParentId,
                         Name = children.Name,
                         SequenceId = children.SequenceId,
-                        ProductCategories = children.ProductCategories == null
+                        Children = children.Children == null
                             ? new List<ProductCategoryDto>()
-                            : AddChildren(children.ProductCategories)
+                            : AddChildren(children.Children)
                     });
                 }
 

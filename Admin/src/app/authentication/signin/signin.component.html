@@ -21,11 +21,6 @@
         <div class="form-control-feedback" *ngIf="form.controls['password'].hasError('required') && form.controls['password'].touched">Password is required.</div>
         <a [routerLink]="['/authentication/forgot']" class="form-text"><small>Recover password</small></a>
       </fieldset>
-      <label class="custom-control custom-checkbox mb-3">
-        <input type="checkbox" class="custom-control-input">
-        <span class="custom-control-indicator"></span>
-        <span class="custom-control-description">Stay logged in</span>
-      </label>
       <div class="block"></div>
       <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Login</button>
       <a class="btn btn-outline-primary btn-link" [routerLink]="['/authentication/signup']">Create an account!</a>
