@@ -5,14 +5,15 @@ import {CommonModule} from '@angular/common';
 import {ProductsService} from './services/products.service';
 
 import {ProductsComponent} from './products.component';
-import {ProductsListComponent} from './products-list/products-list.component';
-import {ProductEditComponent} from './product-edit/product-edit.component';
+import {ProductsListComponent} from './products/products-list/products-list.component';
+import {ProductEditComponent} from './products/product-edit/product-edit.component';
 
 import {ProductsRoutingModule} from './products-routing.module';
 
 import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
+import {TreeModule} from 'angular-tree-component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ProductsRoutingModule,
     NgxDatatableModule,
     TranslateModule,
+    TreeModule,
     NgxPaginationModule
   ],
   declarations: [

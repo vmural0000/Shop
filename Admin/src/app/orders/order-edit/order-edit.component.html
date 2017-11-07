@@ -53,9 +53,8 @@
             <div class="form-group">
               <label for="comments">{{'order.management.comments' | translate}}</label>
               <textarea class="form-control" #comments maxlength="200" [(ngModel)]="order.comments" name="comments"
-                        id="comments"
-                        aria-describedby="commentsHelp"></textarea>
-              <small id="commentsHelp" class="form-text text-muted">{{comments.value.length}} / 200</small>
+                        id="comments" aria-describedby="commentsHelp"></textarea>
+              <!-- <small id="commentsHelp" class="form-text text-muted">{{comments?.value.length}} / 200</small> -->
             </div>
           </div>
         </div>
@@ -145,14 +144,14 @@
               <label for="counterpartyName">{{'order.counterpartyName' | translate}}</label>
               <input type="text" class="form-control" #counterpartyName maxlength="50"  [(ngModel)]="order.counterpartyName" name="counterpartyName" id="counterpartyName"
                      aria-describedby="counterpartyPhoneNumberHelp" required pattern=".{3,50}">
-              <small id="counterpartyNameHelp" class="form-text text-muted">{{counterpartyName.value.length}} / 50</small>
+              <small id="counterpartyNameHelp" class="form-text text-muted">{{counterpartyName.value?.length}} / 50</small>
             </div>
 
             <div class="form-group col-lg-12">
               <label for="counterpartyPhoneNumber">{{'order.counterpartyPhoneNumber' | translate}}</label>
               <input type="text" class="form-control" #counterpartyPhoneNumber maxlength="19"  [(ngModel)]="order.counterpartyPhoneNumber" name="counterpartyPhoneNumber" id="counterpartyPhoneNumber"
                      aria-describedby="counterpartyPhoneNumberHelp" required pattern=".{10,19}">
-              <small id="counterpartyPhoneNumberHelp" class="form-text text-muted">{{counterpartyPhoneNumber.value.length}} / 19</small>
+              <small id="counterpartyPhoneNumberHelp" class="form-text text-muted">{{counterpartyPhoneNumber.value?.length}} / 19</small>
             </div>
 
 

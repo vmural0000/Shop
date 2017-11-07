@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
-import {ProductsService} from '../services/products.service';
-import {Product} from '../services/product.model';
+import {ProductsService} from '../../services/products.service';
+import {Product} from '../../services/product.model';
 import {Subscription} from 'rxjs/Rx';
 import {FileUploader} from 'ng2-file-upload/ng2-file-upload';
 

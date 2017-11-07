@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
-import {ProductCategoriesService} from '../services/productcategories.service';
-import {ProductCategory} from '../services/productcategory.model';
-import {AlertService} from '../../shared/services/alert.service';
+import {ProductCategoriesService} from '../../services/categories.service';
+import {ProductCategory} from '../../services/category.model';
+import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
   selector: 'app-productcategories-list',
-  templateUrl: './productcategories-list.component.html'
+  templateUrl: './categories-list.component.html'
 })
 export class ProductCategoriesListComponent implements OnInit {
   rows: ProductCategory[] = [];
