@@ -2,7 +2,7 @@
 import {Observable} from 'rxjs/Observable';
 
 import {OrderList, Order} from './order.model';
-import {HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class OrdersService {
@@ -23,15 +23,21 @@ export class OrdersService {
     }
 
     acceptOrder(order: Order): Observable<Order> {
-        return this.http.post<Order>(this.orderAcceptUrl, JSON.stringify(order.id));
+        return this.http.post<Order>(this.orderAcceptUrl, JSON.stringify(order.id), {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      });
     }
 
     createOrder(order: Order): Observable<Order> {
-        return this.http.post<Order>(this.ordersUrl, JSON.stringify(order));
+        return this.http.post<Order>(this.ordersUrl, JSON.stringify(order), {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      });
     }
 
     updateOrder(order: Order): Observable<Order> {
-        return this.http.put<Order>(`${this.ordersUrl}/${order.id}`, JSON.stringify(order));
+        return this.http.put<Order>(`${this.ordersUrl}/${order.id}`, JSON.stringify(order), {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      });
     }
 
     deleteOrderItem(id: string): Observable<void> {

@@ -1,65 +1,49 @@
-﻿import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { Utilities } from './utilities';
+﻿import {Injectable} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {ToastrService} from 'ngx-toastr';
+import {error} from "util";
 
 @Injectable()
 export class AlertService {
 
-    constructor(private translation: TranslateService) { }
+  constructor(private translation: TranslateService, private toastr: ToastrService) {
+  }
 
-    show(summary: string, detail: string = '', severity: MessageSeverity = MessageSeverity.info) {
-        let sev: string;
+  info(detail: string = '') {
+    this.toastr.info(detail , 'Info');
+  }
 
-        switch (severity) {
-            case MessageSeverity.info:
-                sev = 'info';
-                break;
-            case MessageSeverity.success:
-                sev = 'success';
-                break;
-            case MessageSeverity.error:
-                sev = 'error';
-                break;
-            case MessageSeverity.warn:
-                sev = 'warn';
-                break;
-        }
-        // this.toastService.show('I am a toast!', 4000, 'green');
+  success(detail: string = '') {
+    this.toastr.success(detail , 'Success');
+    //this.messageService.add({ severity: "success", summary: this.translation.get("alert.Success"), detail: detail });
+  }
+
+  error(detail: any = '', error: string = '') {
+    this.toastr.error(detail.message , 'Error');
+  }
+
+  warn(detail: string = '') {
+    this.toastr.warning(detail , 'Warning');
+  }
+
+
+  confirm(message: string, okCallback: (val?: any) => any) {
+    const r = confirm(message != null ? message : 'alert.Confirm');
+    if (r == true) {
+      okCallback();
     }
-
-    info(detail: string = '') {
-        //this.messageService.add({ severity: "info", summary: this.translation.get("alert.Error"), detail: detail });
-    }
-
-    success(detail: string = '') {
-        //this.messageService.add({ severity: "success", summary: this.translation.get("alert.Success"), detail: detail });
-    }
-    error(detail: string = '', error: string = '') {
-        //this.messageService.add({ severity: "error", summary: this.translation.get("alert.Error"), detail: detail });
-    }
-    warn(detail: string = '') {
-        //this.messageService.add({ severity: "warn", summary: this.translation.get("alert.Error"), detail: detail });
-    }
-
-
-
-    confirm(message: string, okCallback: (val?: any) => any) {
-        let r = confirm( message != null ? message : 'alert.Confirm');
-        if (r == true) {
-            okCallback();
-        }
-        //this.confirmationService.confirm({
-        //    message: message != null ? message : this.translation.get("alert.Confirm"),
-        //    header: 'Delete Confirmation',
-        //    icon: 'fa fa-trash',
-        //    accept: okCallback
-        //});
-    }
+    //this.confirmationService.confirm({
+    //    message: message != null ? message : this.translation.get("alert.Confirm"),
+    //    header: 'Delete Confirmation',
+    //    icon: 'fa fa-trash',
+    //    accept: okCallback
+    //});
+  }
 }
 
 export enum MessageSeverity {
-    info,
-    success,
-    error,
-    warn
+  info,
+  success,
+  error,
+  warn
 }

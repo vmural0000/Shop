@@ -21,8 +21,10 @@ import {AlertService} from './shared/services/alert.service';
 import {JWTInterceptor} from './authentication/services/jwtinterceptor';
 import {ErrorInterceptor} from './authentication/services/errorinterceptor';
 import {LocalStoreManager} from './authentication/services/local-store-manager.service';
-import {AuthGuard} from "./authentication/services/auth-guard.service";
-import {AuthService} from "./authentication/services/auth.service";
+import {AuthGuard} from './authentication/services/auth-guard.service';
+import {AuthService} from './authentication/services/auth.service';
+
+import { ToastrModule } from 'ngx-toastr';
 
 
 export function createTranslateLoader(http: HttpClient) {
@@ -50,7 +52,8 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     NgbModule.forRoot(),
-    SidebarModule.forRoot()
+    SidebarModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     {provide: LOCALE_ID, useValue: 'uk-UA'},

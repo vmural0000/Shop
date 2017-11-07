@@ -2,7 +2,7 @@
 import {Observable} from 'rxjs/Observable';
 
 import {Product, ProductList} from "./product.model";
-import {HttpClient} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ProductsService {
@@ -43,11 +43,15 @@ export class ProductsService {
     }
 
     updateProduct(product: Product) {
-        return this.http.put(`${this.productsUrl}/${product.id}`, JSON.stringify(product));
+        return this.http.put(`${this.productsUrl}/${product.id}`, JSON.stringify(product), {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      });
     }
 
     createProduct(product: Product): Observable<void> {
-        return this.http.post<void>(this.productsUrl, JSON.stringify(product));
+        return this.http.post<void>(this.productsUrl, JSON.stringify(product), {
+          headers: new HttpHeaders().set('Content-Type', 'application/json'),
+      });
     }
 
     deleteProduct(product: Product): Observable<void> {
