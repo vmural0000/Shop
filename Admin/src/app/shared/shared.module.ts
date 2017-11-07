@@ -2,11 +2,10 @@ import { NgModule } from '@angular/core';
 
 import { MenuItems } from './menu-items/menu-items';
 import { AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective } from './accordion';
-import { ToggleFullscreenDirective } from './fullscreen/toggle-fullscreen.directive';
 
 @NgModule({
-  declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
-  exports:      [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective, ToggleFullscreenDirective ],
+  declarations: [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective ],
+  exports:      [ AccordionAnchorDirective, AccordionLinkDirective, AccordionDirective ],
   providers: 	[ MenuItems ]
 })
 export class SharedModule { }

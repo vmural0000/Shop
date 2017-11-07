@@ -91,10 +91,6 @@
               <i class="icon icon-basic-postcard mr-3"></i>
               <span>Profile</span>
             </a>
-            <a class="dropdown-item" href="javascript:;">
-              <i class="icon icon-basic-message-multiple mr-3"></i>
-              <span>Notifications</span>
-            </a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" [routerLink]="['/authentication/logout']">
               <i class="icon icon-arrows-switch-vertical mr-3"></i>
@@ -129,11 +125,6 @@
             </div>
             <div class="notification-footer">Notifications</div>
           </div>
-        </li>
-        <li class="nav-item">
-          <a href="javascript:;" class="nav-link" appToggleFullscreen>
-            <i class="fi flaticon-fullscreen"></i>
-          </a>
         </li>
 
         <li class="nav-item">
@@ -184,7 +175,7 @@
 </ng-template>
 
 
-<div class="configuration hidden-sm-down" [ngClass]="{'active': showSettings}">
+<!-- <div class="configuration hidden-sm-down" [ngClass]="{'active': showSettings}">
   <div class="configuration-cog" (click)="showSettings = !showSettings">
     <i class="icon icon-basic-mixer2"></i>
   </div>
@@ -255,4 +246,4 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
