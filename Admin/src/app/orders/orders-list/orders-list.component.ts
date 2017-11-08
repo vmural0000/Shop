@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import {OrdersService} from '../services/orders.service';
 import {Order, OrderStatus, OrderLine, OrderList} from '../services/order.model';
+import {AlertService} from "../../shared/services/alert.service";
 
 @Component({
   selector: 'app-orders',
@@ -21,7 +22,8 @@ export class OrdersListComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private dataService: OrdersService) {
+              private dataService: OrdersService,
+              private alertService: AlertService) {
   }
 
   ngOnInit() {
@@ -58,23 +60,12 @@ export class OrdersListComponent implements OnInit {
   onDataLoadSuccessful(orders: OrderList[]) {
     this.temp = [...orders];
     this.loadingIndicator = false;
-
-    orders.forEach((item) => {
-      (<any>item).status = OrderStatus[item.status];
-    });
-
     this.rows = orders;
   }
 
   onDataLoadFailed(error: any) {
     this.loadingIndicator = false;
-    //this.notificationService.create({
-    //    title: this.translate.get('general.Error'),
-    //    body: this.translate.get('general.ErrorLoad'),
-    //    styleType: NotificationStyleType.error,
-    //    timeout: 5000,
-    //    pauseOnHover: true
-    //});
+    this.alertService.error(error);
   }
 
   edit(id: string) {

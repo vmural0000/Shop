@@ -3,11 +3,12 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { NgForm } from '@angular/forms';
 
 import { OrdersService } from '../services/orders.service';
-import { Order, OrderStatus, OrderLine } from '../services/order.model';
+import { Order, OrderLine } from '../services/order.model';
 import { Subscription } from 'rxjs/Rx';
 import {AlertService} from '../../shared/services/alert.service';
 import {ProductsService} from '../../products/services/products.service';
 import {Title} from '@angular/platform-browser';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-order-edit',
@@ -18,7 +19,7 @@ import {Title} from '@angular/platform-browser';
 export class OrderEditComponent implements OnInit, OnDestroy {
     private route$: Subscription;
     id: string;
-    order: Order;
+    order: Order = new Order();
     loaded = false;
     readonly = true;
     create: boolean;
@@ -34,13 +35,14 @@ export class OrderEditComponent implements OnInit, OnDestroy {
     @ViewChild('editForm') form;
     minDate: any = new Date();
 
-    statuses = OrderStatus;
+    statuses: any;
 
     constructor(private route: ActivatedRoute,
         private router: Router,
         private dataService: OrdersService,
         private productsService: ProductsService,
         private alertService: AlertService,
+                private translation: TranslateService,
                 private titleService: Title ) {
     }
 
@@ -135,7 +137,7 @@ export class OrderEditComponent implements OnInit, OnDestroy {
                 this.readonly = false;
                 this.create = false;
                 this.router.navigate(['/orders', result.id]);
-                // this.alertService.success(this.translation.get('alert.CreateSuccess', { value: this.order.orderNumber }));
+                this.alertService.success(this.order.orderNumber );
             },
             error => {
                 this.alertService.error(error);
@@ -145,7 +147,7 @@ export class OrderEditComponent implements OnInit, OnDestroy {
     update(editForm: NgForm) {
         this.dataService.updateOrder(this.order)
             .subscribe((result) => {
-                // this.alertService.success(this.translation.get('alert.UpdateSuccess', { value: this.order.orderNumber }));
+                this.alertService.success();
                 // this.order = result; //// change
             },
             error => {
@@ -159,7 +161,7 @@ export class OrderEditComponent implements OnInit, OnDestroy {
             this.dataService.deleteOrder(order)
                 .subscribe(() => {
                     this.router.navigate(['/orders']);
-                    // this.alertService.success(this.translation.get('alert.DeleteSuccess', { value: this.order.orderNumber }));
+                    this.alertService.success(this.order.orderNumber);
                 },
                 error => {
                     this.alertService.error(error);

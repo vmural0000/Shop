@@ -8,7 +8,6 @@ import {OrdersComponent} from './orders.component';
 import {OrdersListComponent} from './orders-list/orders-list.component';
 import {OrderEditComponent} from './order-edit/order-edit.component';
 
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -19,7 +18,6 @@ import {OrdersService} from './services/orders.service';
     CommonModule,
     FormsModule,
     OrdersRoutingModule,
-    NgxDatatableModule,
     TranslateModule,
     NgxPaginationModule
   ],

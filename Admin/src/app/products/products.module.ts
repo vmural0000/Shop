@@ -12,7 +12,6 @@ import {ProductCategoriesListComponent} from './categories/categories-list/categ
 
 import {ProductsRoutingModule} from './products-routing.module';
 
-import {NgxDatatableModule} from '@swimlane/ngx-datatable';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import {TreeModule} from 'angular-tree-component';
@@ -22,7 +21,6 @@ import {TreeModule} from 'angular-tree-component';
     CommonModule,
     FormsModule,
     ProductsRoutingModule,
-    NgxDatatableModule,
     TranslateModule,
     TreeModule,
     NgxPaginationModule

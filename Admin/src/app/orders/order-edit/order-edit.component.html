@@ -2,25 +2,25 @@
 <div class="card" *ngIf="loaded">
   <div class="card-block">
     <button type="button" class="btn btn-primary btn-icon" *ngIf="readonly" (click)="accept(order)">
-      <i class="material-icons">lock open</i><span>{{'general.Accept' | translate}}</span>
+      <i class="fa fa-unlock"></i><span>{{'general.Accept' | translate}}</span>
     </button>
 
     <button type="button" class="btn btn-primary btn-icon" *ngIf="!create && !readonly" (click)="update(editForm)">
-      <i class="material-icons">file_upload</i><span>{{'general.Update' | translate}}</span>
+      <i class="fa fa-upload"></i><span>{{'general.Update' | translate}}</span>
     </button>
 
     <button type="button" class="btn btn-success btn-icon" *ngIf="create && !readonly" (click)="add(editForm)"
             [disabled]="!editForm.form.valid">
-      <i class="material-icons">add</i><span>{{'general.Add' | translate}}</span>
+      <i class="fa fa-plus"></i><span>{{'general.Add' | translate}}</span>
     </button>
 
     <button type="button" class="btn btn-danger btn-icon" *ngIf="!create && !readonly" (click)="delete(order)"
             [disabled]="!editForm.form.valid">
-      <i class="material-icons">delete</i><span>{{'general.Delete' | translate}}</span>
+      <i class="fa fa-trash"></i><span>{{'general.Delete' | translate}}</span>
     </button>
 
     <button type="button" class="btn btn-secondary btn-icon" *ngIf="!create && !readonly" (click)="print()">
-      <i class="material-icons">print</i><span>{{'general.Print' | translate}}</span>
+      <i class="fa fa-print"></i><span>{{'general.Print' | translate}}</span>
     </button>
   </div>
 </div>
@@ -30,32 +30,27 @@
     <div class="col-lg-8">
       <div class="card">
         <div class="card-block">
-          <div class="col-lg-12">
-            <!--<div class="col-lg-6">-->
-            <!--<mat-form-field class="full-width">-->
-            <!--<mat-select [(ngModel)]="order.status" name="status" placeholder="{{'order.management.status' | translate}}">-->
-            <!--<mat-option *ngFor="let status of statuses | keys" [value]="status.key">-->
-            <!--{{ status.value }}-->
-            <!--</mat-option>-->
-            <!--</mat-select>-->
-            <!--</mat-form-field>-->
-            <!--</div>-->
-
-            <!--<div class="col-lg-6">-->
-            <!--<mat-form-field>-->
-            <!--<input matInput [min]="minDate" [(ngModel)]="order.deliveryDate" name="deliveryDate" [matDatepicker]="deliveryDate" placeholder="{{'order.management.deliveryDate' | translate}}">-->
-            <!--<mat-datepicker-toggle matSuffix [for]="deliveryDate"></mat-datepicker-toggle>-->
-            <!--<mat-datepicker #deliveryDate></mat-datepicker>-->
-            <!--</mat-form-field>-->
-            <!--</div>-->
-            <!--</div>-->
-
-            <div class="form-group">
-              <label for="comments">{{'order.management.comments' | translate}}</label>
-              <textarea class="form-control" #comments maxlength="200" [(ngModel)]="order.comments" name="comments"
-                        id="comments" aria-describedby="commentsHelp"></textarea>
-              <!-- <small id="commentsHelp" class="form-text text-muted">{{comments?.value.length}} / 200</small> -->
+          <div class="row">
+            <div class="col-lg-6">
+              {{'order.management.status' | translate}}
+              <select [(ngModel)]="order.status" name="status">
+                <option *ngFor="let status of statuses" [value]="status.key">
+                  {{ status.value }}
+                </option>
+              </select>
             </div>
+
+            <div class="col-lg-6">
+              {{'order.management.deliveryDate' | translate}}
+              <input type="date" [min]="minDate" [(ngModel)]="order.deliveryDate" name="deliveryDate">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="comments">{{'order.management.comments' | translate}}</label>
+            <textarea class="form-control" #comments maxlength="200" [(ngModel)]="order.comments" name="comments"
+                      id="comments" aria-describedby="commentsHelp"></textarea>
+            <small id="commentsHelp" class="form-text text-muted">{{comments?.value.length}} / 200</small>
           </div>
         </div>
       </div>
@@ -110,26 +105,27 @@
             </tbody>
           </table>
         </div>
-      </div>
 
-      <div class="card">
-        <div class="card-block">
-          <table class="ui-g-12">
-            <thead>
-            <tr>
-              <th class="ui-g-4">{{'order.list.orderNumber' | translate}}</th>
-              <th class="ui-g-4">{{'order.list.dateCreated' | translate}}</th>
-              <th class="ui-g-4">{{'order.list.status' | translate}}</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let order of order.orders">
-              <td class="ui-g-4"><a [routerLink]="['/orders', order.id]">{{order.orderNumber}}</a></td>
-              <td class="ui-g-4">{{order.dateCreated | date:'short' }}</td>
-              <td class="ui-g-4">{{order.status}}</td>
-            </tr>
-            </tbody>
-          </table>
+
+        <div class="card">
+          <div class="card-block">
+            <table class="ui-g-12">
+              <thead>
+              <tr>
+                <th class="ui-g-4">{{'order.list.orderNumber' | translate}}</th>
+                <th class="ui-g-4">{{'order.list.dateCreated' | translate}}</th>
+                <th class="ui-g-4">{{'order.list.status' | translate}}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let order of order.orders">
+                <td class="ui-g-4"><a [routerLink]="['/orders', order.id]">{{order.orderNumber}}</a></td>
+                <td class="ui-g-4">{{order.dateCreated | date:'short' }}</td>
+                <td class="ui-g-4">{{order.status}}</td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -142,16 +138,22 @@
 
             <div class="form-group col-lg-12">
               <label for="counterpartyName">{{'order.counterpartyName' | translate}}</label>
-              <input type="text" class="form-control" #counterpartyName maxlength="50"  [(ngModel)]="order.counterpartyName" name="counterpartyName" id="counterpartyName"
+              <input type="text" class="form-control" #counterpartyName maxlength="50"
+                     [(ngModel)]="order.counterpartyName" name="counterpartyName" id="counterpartyName"
                      aria-describedby="counterpartyPhoneNumberHelp" required pattern=".{3,50}">
-              <small id="counterpartyNameHelp" class="form-text text-muted">{{counterpartyName.value?.length}} / 50</small>
+              <small id="counterpartyNameHelp" class="form-text text-muted">{{counterpartyName.value?.length}} / 50
+              </small>
             </div>
 
             <div class="form-group col-lg-12">
               <label for="counterpartyPhoneNumber">{{'order.counterpartyPhoneNumber' | translate}}</label>
-              <input type="text" class="form-control" #counterpartyPhoneNumber maxlength="19"  [(ngModel)]="order.counterpartyPhoneNumber" name="counterpartyPhoneNumber" id="counterpartyPhoneNumber"
+              <input type="text" class="form-control" #counterpartyPhoneNumber maxlength="19"
+                     [(ngModel)]="order.counterpartyPhoneNumber" name="counterpartyPhoneNumber"
+                     id="counterpartyPhoneNumber"
                      aria-describedby="counterpartyPhoneNumberHelp" required pattern=".{10,19}">
-              <small id="counterpartyPhoneNumberHelp" class="form-text text-muted">{{counterpartyPhoneNumber.value?.length}} / 19</small>
+              <small id="counterpartyPhoneNumberHelp" class="form-text text-muted">
+                {{counterpartyPhoneNumber.value?.length}} / 19
+              </small>
             </div>
 
 
