@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 export interface BadgeItem {
   type: string;
@@ -25,25 +25,29 @@ const MENUITEMS = [
     state: 'dashboard',
     name: 'HOME',
     type: 'link',
-    icon: 'basic-accelerator'
+    icon: 'tachometer'
   },
   {
     state: 'products',
-    name: 'PRODUCTS',
-    type: 'link',
-    icon: 'basic-webpage-img-txt'
-  },
-  {
-    state: 'productcategories',
-    name: 'PRODUCTSCATEGORIES',
-    type: 'link',
-    icon: 'software-indent-firstline'
+    name: 'MANAGEPRODUCTS',
+    type: 'sub',
+    icon: 'list-alt',
+    children: [
+      {
+        state: 'list',
+        name: 'PRODUCTS'
+      },
+      {
+        state: 'categories',
+        name: 'PRODUCTSCATEGORIES'
+      }
+    ]
   },
   {
     state: 'orders',
     name: 'ORDERS',
     type: 'link',
-    icon: 'software-indent-firstline'
+    icon: 'money'
   }
 ];
 
@@ -51,5 +55,9 @@ const MENUITEMS = [
 export class MenuItems {
   getAll(): Menu[] {
     return MENUITEMS;
+  }
+
+  add(menu: Menu) {
+    MENUITEMS.push(menu);
   }
 }

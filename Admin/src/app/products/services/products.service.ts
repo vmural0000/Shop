@@ -6,9 +6,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable()
 export class ProductsService {
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) {
     }
-    baseUrl = "http://api.forfun.dp.ua/";
+
     readonly productsUrl = this.baseUrl + "api/products";
     readonly productsPageUrl = this.baseUrl + "api/products/page";
     readonly productsByCategoryUrl = this.productsUrl + "/category";

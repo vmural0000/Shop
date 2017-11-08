@@ -5,18 +5,19 @@ import {ProductsComponent} from './products.component';
 import {ProductEditComponent} from './products/product-edit/product-edit.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 import {ProductCategoriesListComponent} from './categories/categories-list/categories-list.component';
+import {MenuItems} from "../shared/menu-items/menu-items";
 
 const routes: Routes = [
   {
     path: '', component: ProductsComponent,
     children: [
-      {path: '', component: ProductsListComponent},
+      {path: 'list', component: ProductsListComponent},
+      {path: 'categories', component: ProductCategoriesListComponent},
       {path: 'create', component: ProductEditComponent},
-      {path: ':id', component: ProductEditComponent},
+      {path: ':id/edit', component: ProductEditComponent},
       {path: '', redirectTo: '', pathMatch: 'full'}
     ]
-  },
-  {path: 'categories', component: ProductCategoriesListComponent}
+  }
 ];
 
 @NgModule({

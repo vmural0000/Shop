@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import { ProductsService } from '../services/products.service';
-import { ProductList } from '../services/product.model';
+import { ProductsService } from '../../services/products.service';
+import { ProductList } from '../../services/product.model';
 
 
 @Component({
@@ -84,7 +84,7 @@ export class ProductsListComponent implements OnInit {
 
     select(product) {
         // if (this.canUpdateProducts) {
-            this.router.navigate(['/products', product.id]);
+            this.router.navigate(['/products', product.id, 'edit']);
         // }
     }
 

@@ -11,10 +11,6 @@ export const AppRoutes: Routes = [{
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule', canActivate: [AuthGuard]},
     {path: 'products', loadChildren: './products/products.module#ProductsModule', canActivate: [AuthGuard]},
-    {
-      path: 'productcategories', loadChildren: './productcategories/productcategories.module#ProductCategoriesModule',
-      canActivate: [AuthGuard]
-    },
     {path: 'orders', loadChildren: './orders/orders.module#OrdersModule', canActivate: [AuthGuard]}
   ]
 }, {

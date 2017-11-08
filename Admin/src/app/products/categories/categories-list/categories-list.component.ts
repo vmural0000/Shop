@@ -4,7 +4,7 @@ import {ProductCategory} from '../../services/category.model';
 import {AlertService} from '../../../shared/services/alert.service';
 
 @Component({
-  selector: 'app-productcategories-list',
+  selector: 'app-categories-list',
   templateUrl: './categories-list.component.html'
 })
 export class ProductCategoriesListComponent implements OnInit {

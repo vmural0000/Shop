@@ -3,10 +3,12 @@ import {FormsModule} from '@angular/forms';
 import {CommonModule} from '@angular/common';
 
 import {ProductsService} from './services/products.service';
+import {ProductCategoriesService} from './services/categories.service';
 
 import {ProductsComponent} from './products.component';
 import {ProductsListComponent} from './products/products-list/products-list.component';
 import {ProductEditComponent} from './products/product-edit/product-edit.component';
+import {ProductCategoriesListComponent} from './categories/categories-list/categories-list.component';
 
 import {ProductsRoutingModule} from './products-routing.module';
 
@@ -28,9 +30,10 @@ import {TreeModule} from 'angular-tree-component';
   declarations: [
     ProductsComponent,
     ProductsListComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    ProductCategoriesListComponent
   ],
-  providers: [ProductsService]
+  providers: [ProductsService, ProductCategoriesService]
 })
 export class ProductsModule {
 }

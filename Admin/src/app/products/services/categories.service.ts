@@ -10,7 +10,6 @@ export class ProductCategoriesService {
 
     readonly productCategoriesUrl = this.baseUrl + 'api/productCategories';
     readonly productCategoriesListUrl = this.baseUrl + 'api/productCategories/list';
-    readonly parentListUrl = this.baseUrl + 'api/productCategories/parent';
 
     getProductCategories(): Observable<ProductCategory[]> {
         return this.http.get<ProductCategory[]>(this.productCategoriesUrl);

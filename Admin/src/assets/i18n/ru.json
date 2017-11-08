@@ -1,7 +1,9 @@
 ﻿{
   "HOME": "Панель",
+  "MANAGEPRODUCTS": "Керування товарами",
   "PRODUCTS": "Товари",
   "PRODUCTSCATEGORIES": "Категорії",
+  "ORDERS":" Замовлення",
 
   "app": {
     "New": "Нових",
